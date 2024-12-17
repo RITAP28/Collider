@@ -10,7 +10,24 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_LOCAL_URL")  
+  url      = env("DATABASE_LOCAL_URL")
 }
 
+model User {
+  id              Int      @id @default(autoincrement())
+  name            String   @unique
+  email           String   @unique
+  password        String
+  isAuthenticated Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  Session         Session?
+}
 
+model Session {
+  id           Int      @id @default(autoincrement())
+  userId       Int      @unique
+  refreshToken String   @unique
+  expiresAt    BigInt
+  createdAt    DateTime @default(now())
+  user         User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
