@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { IGenre } from "../../lib/data.interface";
 
 const apiKey = import.meta.env.API_KEY;
+const bearerToken = import.meta.env.BEARER_TOKEN;
 
 const HeroSection = () => {
   const [genres, setGenres] = useState<IGenre[]>([]);
@@ -13,8 +14,7 @@ const HeroSection = () => {
         {
           headers: {
             Accept: "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMzE2YTEzN2Q0ZDgzN2E4Mzc3ZjlhMGFhZDA3OTJhZiIsIm5iZiI6MTczNDQyNDI1OS42MTEsInN1YiI6IjY3NjEzNmMzY2RmMWVkMmU0MzE4OTlhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.n1xDRwi-r2cAcuxqmYDM5NMBEgZFI4TVyWPorShiV9Q",
+            Authorization: `Bearer ${bearerToken}`,
           },
         }
       );
