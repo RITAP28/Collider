@@ -19,3 +19,6 @@ export interface IMoviesByGenre {
     vote_average: Float32Array;
     vote_count: number;
 }
+
+export const apiKey = import.meta.env.VITE_API_KEY;
+export const bearerToken = import.meta.env.VITE_BEARER_TOKEN;
