@@ -8,7 +8,14 @@ const Sidebar = () => {
     <>
       <div className="w-full bg-red-200 flex justify-center py-4">
         <div className="w-full">
-          <p className="font-bold text-xl flex justify-center">Collider</p>
+          <p
+            className="font-bold text-xl flex justify-center hover:cursor-pointer"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Collider
+          </p>
           <p className="text-sm flex justify-center">
             A movie recommendation system
           </p>
@@ -24,7 +31,12 @@ const Sidebar = () => {
             Movies
           </div>
         </div>
-        <div className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out">
+        <div
+          className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out"
+          onClick={() => {
+            navigate("/landing/tv/shows");
+          }}
+        >
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/menu/tvshow.png" className="w-5 h-5" alt="" />
           </div>
@@ -32,7 +44,12 @@ const Sidebar = () => {
             TV Shows
           </div>
         </div>
-        <div className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out">
+        <div
+          className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out"
+          onClick={() => {
+            navigate("/landing/genres");
+          }}
+        >
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/menu/genres.png" className="w-5 h-5" alt="" />
           </div>
@@ -40,7 +57,12 @@ const Sidebar = () => {
             Genres
           </div>
         </div>
-        <div className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out">
+        <div
+          className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out"
+          onClick={() => {
+            navigate("/landing/upcoming");
+          }}
+        >
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/menu/comingsoon.png" className="w-5 h-5" alt="" />
           </div>
