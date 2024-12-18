@@ -1,7 +1,12 @@
+import TVAiringToday from "../components/tvlanding/TVAiringToday"
+import TVGenreSection from "../components/tvlanding/TVGenreSection"
 
 const TVShowLanding = () => {
   return (
-    <div>TVShowLanding</div>
+    <div className="w-full flex flex-col overflow-y-auto scrollbar-hide">
+      <TVGenreSection />
+      <TVAiringToday />
+    </div>
   )
 }
 
