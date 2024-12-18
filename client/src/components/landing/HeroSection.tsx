@@ -2,6 +2,7 @@ import GenreSection from "./HeroSection/GenreSection";
 import NowPlayingSection from "./HeroSection/NowPlayingSection";
 import PopularSection from "./HeroSection/PopularSection";
 import TopRatedSection from "./HeroSection/TopRatedSection";
+import UpcomingSection from "./HeroSection/UpcomingSection";
 
 const HeroSection = () => {
   return (
@@ -11,6 +12,7 @@ const HeroSection = () => {
       <NowPlayingSection />
       <PopularSection />
       <TopRatedSection />
+      <UpcomingSection />
     </div>
   );
 };
