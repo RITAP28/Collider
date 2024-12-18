@@ -7,9 +7,6 @@ const GenreSection = () => {
   const [genreLoading, setGenreLoading] = useState<boolean>(false);
 
   const [allGenres, setAllGenres] = useState<IGenre[]>([]);
-
-  const apiKey = "f316a137d4d837a8377f9a0aad0792af";
-
   const handleGetGenres = async () => {
     setGenreLoading(true);
     try {
