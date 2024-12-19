@@ -75,7 +75,9 @@ const MovieDetailsHeader = ({
             |
           </span>
           <div className="pl-2 flex items-center font-Poppins font-semibold">
-            {handleDurationConversion(movieDetails.runtime)}
+            {movieDetails.runtime === 0
+              ? ""
+              : handleDurationConversion(movieDetails.runtime)}
           </div>
         </div>
         <div className="w-full flex flex-row py-2">
@@ -149,6 +151,39 @@ const MovieDetailsHeader = ({
             </p>
             <p className="pl-2 font-Poppins font-semibold">Play Trailer</p>
           </button>
+        </div>
+        <div className="w-full flex flex-col pt-4">
+          <div className="w-full font-Manrope text-lg">Details:</div>
+          <div className="w-full flex flex-row pt-2 gap-2">
+            <button
+              type="button"
+              className="flex flex-row bg-slate-400 p-2 rounded-lg font-Poppins hover:scale-105 transition duration-200 ease-in-out hover:bg-black hover:text-white"
+            >
+              <p className="px-2 font-semibold">Ratings</p>
+              <p className="pr-2">{movieDetails.vote_average}</p>
+            </button>
+            <button
+              type="button"
+              className="flex flex-row bg-slate-400 p-2 rounded-lg font-Poppins hover:scale-105 transition duration-200 ease-in-out hover:bg-black hover:text-white"
+            >
+              <p className="px-2 font-semibold">Status:</p>
+              <p className="pr-2">{movieDetails.status}</p>
+            </button>
+            <button
+              type="button"
+              className="flex flex-row bg-slate-400 p-2 rounded-lg font-Poppins hover:scale-105 transition duration-200 ease-in-out hover:bg-black hover:text-white"
+            >
+              <p className="px-2 font-semibold">Budget:</p>
+              <p className="pr-2">${movieDetails.budget.toLocaleString("en-US")}</p>
+            </button>
+            <button
+              type="button"
+              className="flex flex-row bg-slate-400 p-2 rounded-lg font-Poppins hover:scale-105 transition duration-200 ease-in-out hover:bg-black hover:text-white"
+            >
+              <p className="px-2 font-semibold">Revenue:</p>
+              <p className="pr-2">${movieDetails.revenue.toLocaleString("en-US")}</p>
+            </button>
+          </div>
         </div>
       </div>
     </div>
