@@ -35,7 +35,7 @@ const Register = () => {
           },
         }
       );
-      console.log("Registration result: ", registerResponse.data);
+      console.log("Registration result:", registerResponse.data);
       dispatch(RegistrationSuccess(registerResponse.data));
       navigate("/");
     } catch (error) {
