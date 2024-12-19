@@ -1,7 +1,8 @@
 import GenreSection from "./HeroSection/GenreSection";
 import NowPlayingSection from "./HeroSection/NowPlayingSection";
-import PopularSection from "./HeroSection/PopularSection";
+// import PopularSection from "./HeroSection/PopularSection";
 import TopRatedSection from "./HeroSection/TopRatedSection";
+import TrendingSection from "./HeroSection/TrendingSection";
 import UpcomingSection from "./HeroSection/UpcomingSection";
 
 const HeroSection = () => {
@@ -9,8 +10,9 @@ const HeroSection = () => {
     <div className="w-full flex flex-col overflow-x-hidden">
       {/* genres section */}
       <GenreSection />
+      <TrendingSection />
       <NowPlayingSection />
-      <PopularSection />
+      {/* <PopularSection /> */}
       <TopRatedSection />
       <UpcomingSection />
     </div>

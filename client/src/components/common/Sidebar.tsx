@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks/hook";
 
 const Sidebar = () => {
-  const { isAuthenticated } = useAppSelector((state) => state.user);
+  const { isAuthenticated, currentUser } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   return (
     <>
@@ -120,7 +120,7 @@ const Sidebar = () => {
           className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out"
           onClick={() => {
             if (isAuthenticated) {
-              navigate("/profile");
+              navigate(`/profile/u/${currentUser?.name}`);
             } else {
               navigate("/login");
             }
@@ -130,7 +130,7 @@ const Sidebar = () => {
             <img src="/general/profile.png" className="w-5 h-5" alt="" />
           </div>
           <div className="w-[60%] flex justify-start pl-1 items-center text-lg">
-            {isAuthenticated ? "Profile" : "Login"}
+            {isAuthenticated ? currentUser?.name : "Login"}
           </div>
         </div>
       </div>
