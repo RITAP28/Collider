@@ -139,5 +139,18 @@ export interface IActorDetails {
     profile_path: string;
 };
 
+export interface IWatchlist {
+    id: number;
+    userId: number;
+    movieId: number;
+    movieName: string;
+    moviePoster: string;
+    movieOverview: string;
+    voteAvg: number;
+    voteCount: number;
+    addedAt: string;
+};
+
+export const port = import.meta.env.VITE_SERVER_PORT;
 export const apiKey = import.meta.env.VITE_API_KEY;
 export const bearerToken = import.meta.env.VITE_BEARER_TOKEN;

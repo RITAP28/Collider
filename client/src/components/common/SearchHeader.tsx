@@ -1,7 +1,7 @@
 const SearchHeader = () => {
   return (
     <>
-      <div className="w-[80%] flex flex-row items-center">
+      <div className="w-[80%] flex flex-row items-center py-2">
         <div className="w-[30%] flex justify-end pr-4 items-center text-lg font-medium">
           Search any movie/tvshow:
         </div>

@@ -2,6 +2,7 @@ import express from "express";
 import { isAuthenticated } from "../middlewares/auth.middleware";
 import {
   bookmarkedMovie,
+  getWatchlist,
   isAlreadyBookmarked,
   isAlreadyLiked,
   isAlreadyWatchListed,
@@ -28,18 +29,24 @@ export default (router: express.Router) => {
   );
 
   router.get(
-    "/get/like/movie",
+    "/get/check/like/movie",
     isAuthenticated as express.RequestHandler,
     asyncHandler(isAlreadyLiked)
   );
   router.get(
-    "/get/bookmark/movie",
+    "/get/check/bookmark/movie",
     isAuthenticated as express.RequestHandler,
     asyncHandler(isAlreadyBookmarked)
   );
   router.get(
-    "/get/watchlist/movie",
+    "/get/check/watchlist/movie",
     isAuthenticated as express.RequestHandler,
     asyncHandler(isAlreadyWatchListed)
+  );
+
+  router.get(
+    "/get/watchlist/movie",
+    isAuthenticated as express.RequestHandler,
+    asyncHandler(getWatchlist)
   );
 };

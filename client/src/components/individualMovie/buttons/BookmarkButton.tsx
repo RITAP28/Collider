@@ -27,7 +27,7 @@ const BookmarkButton = ({ movieDetails }: { movieDetails: IMovieDetails }) => {
   const handleIsAlreadyBookmarked = async () => {
     try {
       const isBookmarkedResponse = await axios.get(
-        `http://localhost:${port}/get/bookmark/movie?userId=${currentUser?.id}&movieId=${movieDetails.id}`,
+        `http://localhost:${port}/get/check/bookmark/movie?userId=${currentUser?.id}&movieId=${movieDetails.id}`,
         config
       );
       console.log("is bookmarked?: ", isBookmarkedResponse.data);

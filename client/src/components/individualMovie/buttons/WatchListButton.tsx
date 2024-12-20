@@ -27,7 +27,7 @@ const WatchListButton = ({ movieDetails }: { movieDetails: IMovieDetails }) => {
   const handleIsAlreadyListed = async () => {
     try {
       const isListedResponse = await axios.get(
-        `http://localhost:${port}/get/watchlist/movie?userId=${currentUser?.id}&movieId=${movieDetails.id}`,
+        `http://localhost:${port}/get/check/watchlist/movie?userId=${currentUser?.id}&movieId=${movieDetails.id}`,
         config
       );
       console.log("is watchlisted?: ", isListedResponse.data);

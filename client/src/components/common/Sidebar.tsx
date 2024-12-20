@@ -2,7 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks/hook";
 
 const Sidebar = () => {
-  const { isAuthenticated, currentUser } = useAppSelector((state) => state.user);
+  const { isAuthenticated, currentUser } = useAppSelector(
+    (state) => state.user
+  );
   const navigate = useNavigate();
   return (
     <>
@@ -81,7 +83,12 @@ const Sidebar = () => {
             Playlists
           </div>
         </div>
-        <div className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out">
+        <div
+          className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out"
+          onClick={() => {
+            navigate(`/person/watchlist?userId=${currentUser?.id}`);
+          }}
+        >
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/library/bookmark.png" className="w-5 h-5" alt="" />
           </div>

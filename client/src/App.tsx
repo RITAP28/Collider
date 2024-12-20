@@ -13,6 +13,7 @@ import SearchHeader from "./components/common/SearchHeader";
 import Profile from "./pages/Profile";
 import IndividualMovie from "./pages/IndividualMovie";
 import ActorDetails from "./pages/ActorDetails";
+import Watchlist from "./pages/library/watchlist";
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -33,6 +34,7 @@ function App() {
           <Route path="/profile/u/:username" element={<Profile />} />
           <Route path="/movie/:id" element={<IndividualMovie />} />
           <Route path="/person/:id" element={<ActorDetails />} />
+          <Route path="/person/watchlist" element={<Watchlist />} />
         </Route>
       </Routes>
     </>
