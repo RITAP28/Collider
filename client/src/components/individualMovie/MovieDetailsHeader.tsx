@@ -1,10 +1,31 @@
+import axios from "axios";
 import { IMovieDetails } from "../../lib/data.interface";
+import { useAppSelector } from "@/redux/hooks/hook";
 
 const MovieDetailsHeader = ({
   movieDetails,
 }: {
   movieDetails: IMovieDetails;
 }) => {
+  const { currentUser, accessToken } = useAppSelector((state) => state.user);
+  const port = import.meta.env.VITE_SERVER_PORT;
+  const requestBody = {
+    userId: currentUser?.id,
+    movieId: movieDetails.id,
+    movieName: movieDetails.original_title,
+    moviePoster: movieDetails.poster_path,
+    movieOverview: movieDetails.overview,
+    voteAvg: movieDetails.vote_average,
+    voteCount: movieDetails.vote_count,
+  };
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+
+
   const handleDateConversion = (date: string) => {
     const inputDate = date;
     const [year, month, day] = inputDate.split("-");
@@ -20,6 +41,28 @@ const MovieDetailsHeader = ({
       const minutes = duration % 60;
       return `${hours}h ${minutes}m`;
     }
+  };
+
+  const handleLikeMovie = async () => {
+    try {
+      const likedMovie = await axios.post(
+        `http://localhost:${port}/like/movie/${movieDetails.id}`,
+        requestBody,
+        config
+      );
+      console.log("Movie successfully added to liked movies: ", likedMovie.data);
+    } catch (error) {
+      console.error("Error while adding movie to like list: ", error);
+    }
+  };
+
+  const handleWatchlistMovie = async () => {
+    try {
+      const watchlistedMovie = await axios.post(`http://localhost:${port}/list/movie/${movieDetails.id}`, requestBody, config);
+      console.log("Movie successfully watchlisted: ", watchlistedMovie.data);
+    } catch (error) {
+      console.error("Error while adding the movie to the watchlist: ", error);
+    };
   };
 
   return (
@@ -85,6 +128,7 @@ const MovieDetailsHeader = ({
             <button
               type="button"
               className="px-3 py-2 bg-slate-400 rounded-lg hover:cursor-pointer transition duration-200 ease-in-out hover:bg-slate-300 flex flex-row"
+              onClick={handleWatchlistMovie}
             >
               <p className="">
                 <img
@@ -100,6 +144,7 @@ const MovieDetailsHeader = ({
             <button
               type="button"
               className="px-3 py-2 bg-slate-400 rounded-lg hover:cursor-pointer transition duration-200 ease-in-out hover:bg-slate-300 flex flex-row"
+              onClick={handleLikeMovie}
             >
               <p className="">
                 <img
@@ -174,14 +219,18 @@ const MovieDetailsHeader = ({
               className="flex flex-row bg-slate-400 p-2 rounded-lg font-Poppins hover:scale-105 transition duration-200 ease-in-out hover:bg-black hover:text-white"
             >
               <p className="px-2 font-semibold">Budget:</p>
-              <p className="pr-2">${movieDetails.budget.toLocaleString("en-US")}</p>
+              <p className="pr-2">
+                ${movieDetails.budget.toLocaleString("en-US")}
+              </p>
             </button>
             <button
               type="button"
               className="flex flex-row bg-slate-400 p-2 rounded-lg font-Poppins hover:scale-105 transition duration-200 ease-in-out hover:bg-black hover:text-white"
             >
               <p className="px-2 font-semibold">Revenue:</p>
-              <p className="pr-2">${movieDetails.revenue.toLocaleString("en-US")}</p>
+              <p className="pr-2">
+                ${movieDetails.revenue.toLocaleString("en-US")}
+              </p>
             </button>
           </div>
         </div>
