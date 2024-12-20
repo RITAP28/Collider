@@ -47,6 +47,8 @@ model Watchlist {
   addedAt       DateTime @default(now())
 
   user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+
+  @@unique([userId, movieId])
 }
 
 model LikedMovies {
@@ -61,6 +63,8 @@ model LikedMovies {
   likedAt       DateTime @default(now())
 
   user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+
+  @@unique([userId, movieId])
 }
 
 model Bookmarks {
@@ -75,4 +79,6 @@ model Bookmarks {
   likedAt       DateTime @default(now())
 
   user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+
+  @@unique([userId, movieId])
 }

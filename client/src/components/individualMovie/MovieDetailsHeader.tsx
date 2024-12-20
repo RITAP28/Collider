@@ -1,31 +1,13 @@
-import axios from "axios";
 import { IMovieDetails } from "../../lib/data.interface";
-import { useAppSelector } from "@/redux/hooks/hook";
+import WatchListButton from "./buttons/WatchListButton";
+import FavouriteButton from "./buttons/FavouriteButton";
+import BookmarkButton from "./buttons/BookmarkButton";
 
 const MovieDetailsHeader = ({
   movieDetails,
 }: {
   movieDetails: IMovieDetails;
 }) => {
-  const { currentUser, accessToken } = useAppSelector((state) => state.user);
-  const port = import.meta.env.VITE_SERVER_PORT;
-  const requestBody = {
-    userId: currentUser?.id,
-    movieId: movieDetails.id,
-    movieName: movieDetails.original_title,
-    moviePoster: movieDetails.poster_path,
-    movieOverview: movieDetails.overview,
-    voteAvg: movieDetails.vote_average,
-    voteCount: movieDetails.vote_count,
-  };
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
-
-
   const handleDateConversion = (date: string) => {
     const inputDate = date;
     const [year, month, day] = inputDate.split("-");
@@ -41,28 +23,6 @@ const MovieDetailsHeader = ({
       const minutes = duration % 60;
       return `${hours}h ${minutes}m`;
     }
-  };
-
-  const handleLikeMovie = async () => {
-    try {
-      const likedMovie = await axios.post(
-        `http://localhost:${port}/like/movie/${movieDetails.id}`,
-        requestBody,
-        config
-      );
-      console.log("Movie successfully added to liked movies: ", likedMovie.data);
-    } catch (error) {
-      console.error("Error while adding movie to like list: ", error);
-    }
-  };
-
-  const handleWatchlistMovie = async () => {
-    try {
-      const watchlistedMovie = await axios.post(`http://localhost:${port}/list/movie/${movieDetails.id}`, requestBody, config);
-      console.log("Movie successfully watchlisted: ", watchlistedMovie.data);
-    } catch (error) {
-      console.error("Error while adding the movie to the watchlist: ", error);
-    };
   };
 
   return (
@@ -99,8 +59,8 @@ const MovieDetailsHeader = ({
           </span>
           <div className="px-2 flex items-center font-Poppins font-semibold">
             <p className="">{`(`}</p>
-            {movieDetails.origin_country.map((movie) => (
-              <div className="">{movie},</div>
+            {movieDetails.origin_country.map((movie, index) => (
+              <div className="" key={index}>{movie},</div>
             ))}
             <p className="">{`)`}</p>
           </div>
@@ -124,53 +84,9 @@ const MovieDetailsHeader = ({
           </div>
         </div>
         <div className="w-full flex flex-row py-2">
-          <div className="pr-2">
-            <button
-              type="button"
-              className="px-3 py-2 bg-slate-400 rounded-lg hover:cursor-pointer transition duration-200 ease-in-out hover:bg-slate-300 flex flex-row"
-              onClick={handleWatchlistMovie}
-            >
-              <p className="">
-                <img
-                  src="/like/list.png"
-                  alt=""
-                  className="w-6 h-6 hover:scale-110 transition duration-150 ease-in-out"
-                />
-              </p>
-              <p className="font-Poppins font-semibold pl-1">Add to List</p>
-            </button>
-          </div>
-          <div className="px-2">
-            <button
-              type="button"
-              className="px-3 py-2 bg-slate-400 rounded-lg hover:cursor-pointer transition duration-200 ease-in-out hover:bg-slate-300 flex flex-row"
-              onClick={handleLikeMovie}
-            >
-              <p className="">
-                <img
-                  src="/like/heart.png"
-                  alt=""
-                  className="w-6 h-6 hover:scale-110 transition duration-150 ease-in-out"
-                />
-              </p>
-              <p className="font-Poppins font-semibold pl-1">Like</p>
-            </button>
-          </div>
-          <div className="px-2">
-            <button
-              type="button"
-              className="px-3 py-2 bg-slate-400 rounded-lg hover:cursor-pointer transition duration-200 ease-in-out hover:bg-slate-300 flex flex-row"
-            >
-              <p className="">
-                <img
-                  src="/like/bookmark.png"
-                  alt=""
-                  className="w-6 h-6 hover:scale-110 transition duration-150 ease-in-out"
-                />
-              </p>
-              <p className="font-Poppins font-semibold pl-1">Bookmark</p>
-            </button>
-          </div>
+          <FavouriteButton movieDetails={movieDetails} />
+          <WatchListButton movieDetails={movieDetails} />
+          <BookmarkButton movieDetails={movieDetails} />
         </div>
         <div className="w-full flex flex-col">
           <div className="w-full">

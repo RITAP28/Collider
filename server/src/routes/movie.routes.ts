@@ -2,6 +2,9 @@ import express from "express";
 import { isAuthenticated } from "../middlewares/auth.middleware";
 import {
   bookmarkedMovie,
+  isAlreadyBookmarked,
+  isAlreadyLiked,
+  isAlreadyWatchListed,
   likedMovie,
   listedMovie,
 } from "../controller/user.controller";
@@ -22,5 +25,21 @@ export default (router: express.Router) => {
     "/bookmark/movie/:id",
     isAuthenticated as express.RequestHandler,
     asyncHandler(bookmarkedMovie)
+  );
+
+  router.get(
+    "/get/like/movie",
+    isAuthenticated as express.RequestHandler,
+    asyncHandler(isAlreadyLiked)
+  );
+  router.get(
+    "/get/bookmark/movie",
+    isAuthenticated as express.RequestHandler,
+    asyncHandler(isAlreadyBookmarked)
+  );
+  router.get(
+    "/get/watchlist/movie",
+    isAuthenticated as express.RequestHandler,
+    asyncHandler(isAlreadyWatchListed)
   );
 };
