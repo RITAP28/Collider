@@ -9,9 +9,10 @@ import TVShowLanding from "./pages/TVShowLanding";
 import Genres from "./pages/Genres";
 import ComingSoon from "./pages/ComingSoon";
 import Sidebar from "./components/common/Sidebar";
-import SearchHeader from "./components/landing/SearchHeader";
+import SearchHeader from "./components/common/SearchHeader";
 import Profile from "./pages/Profile";
 import IndividualMovie from "./pages/IndividualMovie";
+import ActorDetails from "./pages/ActorDetails";
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -31,6 +32,7 @@ function App() {
           <Route path="/landing/upcoming" element={<ComingSoon />} />
           <Route path="/profile/u/:username" element={<Profile />} />
           <Route path="/movie/:id" element={<IndividualMovie />} />
+          <Route path="/person/:id" element={<ActorDetails />} />
         </Route>
       </Routes>
     </>

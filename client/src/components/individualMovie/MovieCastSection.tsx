@@ -1,6 +1,7 @@
 import { apiKey, ICastDetails, IMovieDetails } from "../../lib/data.interface";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MovieCastSection = ({
   movieDetails,
@@ -9,6 +10,8 @@ const MovieCastSection = ({
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [castDetails, setCastDetails] = useState<ICastDetails[]>([]);
+
+  const navigate = useNavigate();
 
   const handleGetCastDetails = async () => {
     setLoading(true);
@@ -41,6 +44,9 @@ const MovieCastSection = ({
         <div
           className="bg-slate-300 min-w-[10rem] rounded-lg hover:scale-105 transition duration-200 ease-in-out"
           key={index}
+          onClick={() => {
+            navigate(`/person/${cast.id}`);
+          }}
         >
           <div className="w-full">
             <img

@@ -122,5 +122,22 @@ export interface IPhotoDetailsOfMovie {
     width: number;
 };
 
+export interface IActorDetails {
+    adult: boolean;
+    also_known_as: string[] | string;
+    biography: string;
+    birthday: string;
+    deathday: string | null;
+    gender: number;
+    homepage: string | null;
+    id: number;
+    imdb_id: string;
+    known_for_department: string;
+    name: string;
+    place_of_birth: string;
+    popularity: number;
+    profile_path: string;
+};
+
 export const apiKey = import.meta.env.VITE_API_KEY;
 export const bearerToken = import.meta.env.VITE_BEARER_TOKEN;
