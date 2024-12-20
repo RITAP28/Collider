@@ -14,13 +14,16 @@ datasource db {
 }
 
 model User {
-  id              Int      @id @default(autoincrement())
-  name            String   @unique
-  email           String   @unique
+  id              Int           @id @default(autoincrement())
+  name            String        @unique
+  email           String        @unique
   password        String
-  isAuthenticated Boolean  @default(false)
-  createdAt       DateTime @default(now())
+  isAuthenticated Boolean       @default(false)
+  createdAt       DateTime      @default(now())
   Session         Session?
+  Watchlist       Watchlist[]
+  LikedMovies     LikedMovies[]
+  Bookmarks       Bookmarks[]
 }
 
 model Session {
@@ -30,4 +33,46 @@ model Session {
   expiresAt    BigInt
   createdAt    DateTime @default(now())
   user         User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model Watchlist {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  movieId       Int
+  movieName     String
+  moviePoster   String
+  movieOverview String
+  voteAvg       Float
+  voteCount     Int
+  addedAt       DateTime @default(now())
+
+  user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model LikedMovies {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  movieId       Int
+  movieName     String
+  moviePoster   String
+  movieOverview String
+  voteAvg       Float
+  voteCount     Int
+  likedAt       DateTime @default(now())
+
+  user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model Bookmarks {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  movieId       Int
+  movieName     String
+  moviePoster   String
+  movieOverview String
+  voteAvg       Float
+  voteCount     Int
+  likedAt       DateTime @default(now())
+
+  user User @relation(references: [id], fields: [userId], onDelete: Cascade)
 }

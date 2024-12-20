@@ -31,7 +31,7 @@ const MovieCastSection = ({
 
   useEffect(() => {
     handleGetCastDetails();
-  }, []);
+  }, [movieDetails.id]);
 
   return loading ? (
     "loading..."

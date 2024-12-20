@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MovieRecommendationSection from "../components/individualMovie/MovieRecommendationSection";
 import { config } from "../lib/utils";
+import MovieVideoSection from "../components/individualMovie/MovieVideoSection";
+import MoviePhotoSection from "../components/individualMovie/MoviePhotoSection";
 
 const IndividualMovie = () => {
   const { id } = useParams();
@@ -28,7 +30,7 @@ const IndividualMovie = () => {
 
   useEffect(() => {
     handleGetMovieDetailsById();
-  }, []);
+  }, [id]);
 
   return (
     <div className="w-full">
@@ -36,19 +38,28 @@ const IndividualMovie = () => {
         "loading..."
       ) : movieDetails ? (
         <>
+          {/* Header details */}
           <MovieDetailsHeader movieDetails={movieDetails} />
+          {/* media section */}
+          <MovieVideoSection movieDetails={movieDetails} />
+          <div className="w-full">
+            <MoviePhotoSection movieDetails={movieDetails} />
+          </div>
+          {/* cast details */}
           <div className="w-full">
             <div className="w-full font-Poppins font-medium text-2xl p-4">
               Meet the Cast:
             </div>
             <MovieCastSection movieDetails={movieDetails} />
           </div>
+          {/* comments section */}
           <div className="w-full p-4">
             <MovieCommentsSection />
           </div>
+          {/* recommendation system */}
           <div className="w-full">
             <div className="w-full pl-4 font-Poppins font-semibold text-xl">
-                Recommended for you:
+                Movies similar to {movieDetails.original_title}
             </div>
             <div className="w-full p-4 flex flex-row gap-2 overflow-x-auto scrollbar-hide">
               <MovieRecommendationSection movieDetails={movieDetails} />
