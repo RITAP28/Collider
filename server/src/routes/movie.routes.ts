@@ -1,7 +1,9 @@
 import express from "express";
 import { isAuthenticated } from "../middlewares/auth.middleware";
 import {
+  addReview,
   bookmarkedMovie,
+  getReviewsForMovie,
   getWatchlist,
   isAlreadyBookmarked,
   isAlreadyLiked,
@@ -48,5 +50,17 @@ export default (router: express.Router) => {
     "/get/watchlist/movie",
     isAuthenticated as express.RequestHandler,
     asyncHandler(getWatchlist)
+  );
+
+  router.get(
+    "/get/movie/reviews",
+    isAuthenticated as express.RequestHandler,
+    asyncHandler(getReviewsForMovie)
+  );
+
+  router.post(
+    '/add/movie/review',
+    isAuthenticated as express.RequestHandler,
+    asyncHandler(addReview)
   );
 };

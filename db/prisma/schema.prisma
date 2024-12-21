@@ -24,6 +24,7 @@ model User {
   Watchlist       Watchlist[]
   LikedMovies     LikedMovies[]
   Bookmarks       Bookmarks[]
+  Review          Review[]
 }
 
 model Session {
@@ -77,6 +78,21 @@ model Bookmarks {
   voteAvg       Float
   voteCount     Int
   likedAt       DateTime @default(now())
+
+  user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+
+  @@unique([userId, movieId])
+}
+
+model Review {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  username String
+  movieId    Int
+  reviewText String
+  rating     Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
 
   user User @relation(references: [id], fields: [userId], onDelete: Cascade)
 

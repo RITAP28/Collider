@@ -2,7 +2,6 @@ import { useAppSelector } from "../../redux/hooks/hook";
 import { IWatchlist, port } from "../../lib/data.interface";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { config } from "../../lib/utils";
 import { useNavigate } from "react-router-dom";
 
 const Watchlist = () => {
@@ -52,14 +51,14 @@ const Watchlist = () => {
       <div className="w-full font-Poppins font-semibold text-3xl">
         Your Watchlist:
       </div>
-      <div className="w-full grid grid-cols-3 overflow-x-auto scrollbar-hide pt-4">
+      <div className="w-full grid grid-cols-3 gap-1 overflow-x-auto scrollbar-hide pt-4">
         {watchlist.map((movie, index) => (
           <div
             className="flex flex-row bg-slate-400 transition duration-200 ease-in-out hover:cursor-pointer p-2 hover:bg-black hover:text-white rounded-md"
             key={index}
             onClick={() => {
               // navigate to movie details page
-              navigate(`/movie/${movie.id}`);
+              navigate(`/movie/${movie.movieId}`);
             }}
           >
             {/* movie details */}

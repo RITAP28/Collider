@@ -151,6 +151,17 @@ export interface IWatchlist {
     addedAt: string;
 };
 
+export interface IUserReviews {
+  id: number;
+  userId: number;
+  username: string;
+  movieId: number;
+  reviewText: string;
+  rating?: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export const port = import.meta.env.VITE_SERVER_PORT;
 export const apiKey = import.meta.env.VITE_API_KEY;
 export const bearerToken = import.meta.env.VITE_BEARER_TOKEN;

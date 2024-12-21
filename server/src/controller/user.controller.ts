@@ -253,3 +253,52 @@ export async function getWatchlist(req: Request, res: Response) {
     });
   }
 }
+
+export async function getReviewsForMovie(req: Request, res: Response) {
+  try {
+    const { movieId } = req.query;
+    const reviews = await prisma.review.findMany({
+      where: {
+        movieId: Number(movieId)
+      }
+    });
+    return res.status(200).json({
+      success: true,
+      msg: "Reviews retrieved successfully",
+      reviews: reviews,
+    });
+  } catch (error) {
+    console.error("Error while fetching reviews for a particular movie: ", error);
+    return res.status(500).json({
+      success: false,
+      msg: "Internal Server Error"
+    });
+  };
+};
+
+export async function addReview(req: Request, res: Response) {
+  try {
+    const { userId, movieId } = req.query;
+    const { reviewText, rating } = req.body;
+    const newReview = await prisma.review.create({
+      data: {
+        userId: Number(userId),
+        movieId: Number(movieId),
+        reviewText: reviewText,
+        rating: Number(rating),
+        updatedAt: new Date(Date.now())
+      }
+    });
+    return res.status(201).json({
+      success: true,
+      msg: "Review added successfully",
+      newReview: newReview,
+    });
+  } catch (error) {
+    console.error("Error while adding review: ", error);
+    return res.status(500).json({
+      success: false,
+      msg: "Internal Server Error"
+    });
+  };
+};
