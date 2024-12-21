@@ -8,7 +8,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className="w-full bg-red-200 flex justify-center py-4">
+      <div className="w-full bg-black text-white flex justify-center py-4">
         <div className="w-full">
           <p
             className="font-bold text-xl flex justify-center hover:cursor-pointer"
@@ -23,9 +23,8 @@ const Sidebar = () => {
           </p>
         </div>
       </div>
-      <div className="w-full bg-red-300 flex flex-col justify-center py-3">
-        <div className="w-full flex justify-center font-light">Menu</div>
-        <div className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out">
+      <div className="w-full bg-black flex flex-col justify-center items-center text-white py-3">
+        <div className="w-[80%] flex flex-row py-2 hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black rounded-sm">
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/menu/movie.png" className="w-5 h-5" alt="" />
           </div>
@@ -34,7 +33,7 @@ const Sidebar = () => {
           </div>
         </div>
         <div
-          className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out"
+          className="w-[80%] flex flex-row py-2 hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black rounded-sm"
           onClick={() => {
             navigate("/landing/tv/shows");
           }}
@@ -47,7 +46,7 @@ const Sidebar = () => {
           </div>
         </div>
         <div
-          className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out"
+          className="w-[80%] flex flex-row py-2 rounded-sm hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black"
           onClick={() => {
             navigate("/landing/genres");
           }}
@@ -60,7 +59,7 @@ const Sidebar = () => {
           </div>
         </div>
         <div
-          className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out"
+          className="w-[80%] flex flex-row py-2 rounded-sm hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black"
           onClick={() => {
             navigate("/landing/upcoming");
           }}

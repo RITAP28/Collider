@@ -82,6 +82,7 @@ const MovieCommentsSection = ({
         `http://localhost:${port}/add/movie/review?userId=${currentUser?.id}&movieId=${id}`,
         {
           reviewText: reviewText,
+          movieName: movieDetails.original_title,
           rating: rating,
           username: currentUser?.name,
         },

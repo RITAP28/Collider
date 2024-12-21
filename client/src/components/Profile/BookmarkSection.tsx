@@ -87,7 +87,7 @@ const BookmarkSection = () => {
                   </p>
                 </div>
                 <div className="w-full font-Manrope font-medium text-base pt-2 pl-4">
-                  Watchlisted on {handleDateConversion(movie.likedAt)}
+                  Bookmarked on {handleDateConversion(movie.likedAt)}
                 </div>
               </div>
             </div>

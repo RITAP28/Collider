@@ -168,6 +168,7 @@ export interface IUserReviews {
   userId: number;
   username: string;
   movieId: number;
+  movieName: string;
   reviewText: string;
   rating?: number;
   createdAt: Date;

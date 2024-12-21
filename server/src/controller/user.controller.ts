@@ -344,12 +344,13 @@ export async function getReviewsForMovie(req: Request, res: Response) {
 export async function addReview(req: Request, res: Response) {
   try {
     const { userId, movieId } = req.query;
-    const { reviewText, rating, username } = req.body;
+    const { reviewText, rating, username, movieName } = req.body;
     const newReview = await prisma.review.create({
       data: {
         userId: Number(userId),
         movieId: Number(movieId),
         username: String(username),
+        movieName: String(movieName),
         reviewText: reviewText,
         rating: Number(rating),
         updatedAt: new Date(Date.now()),
