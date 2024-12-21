@@ -254,6 +254,62 @@ export async function getWatchlist(req: Request, res: Response) {
   }
 }
 
+export async function getFavourites(req: Request, res: Response) {
+  try {
+    const { userId }= req.query;
+    const likedMovies = await prisma.likedMovies.findMany({
+      where: {
+        userId: Number(userId),
+      }
+    });
+    if (likedMovies.length === 0){
+      return res.status(404).json({
+        success: false,
+        msg: "No movies in favourites"
+      });
+    };
+    return res.status(200).json({
+      success: true,
+      msg: "Favourites retrieved successfully",
+      likedMovies: likedMovies,
+    });
+  } catch (error) {
+    console.error("Error while fetching favourites: ", error);
+    return res.status(500).json({
+      success: false,
+      msg: "Internal Server Error",
+    });
+  };
+};
+
+export async function getBookmarks(req: Request, res: Response) {
+  try {
+    const { userId }= req.query;
+    const bookmarkedMovies = await prisma.bookmarks.findMany({
+      where: {
+        userId: Number(userId),
+      }
+    });
+    if (bookmarkedMovies.length === 0){
+      return res.status(404).json({
+        success: false,
+        msg: "No movies in bookmarks"
+      });
+    };
+    return res.status(200).json({
+      success: true,
+      msg: "Bookmark movies retrieved successfully",
+      bookmarkedMovie: bookmarkedMovies,
+    });
+  } catch (error) {
+    console.error("Error while fetching bookmarks: ", error);
+    return res.status(500).json({
+      success: false,
+      msg: "Internal Server Error",
+    });
+  };
+};
+
 export async function getReviewsForMovie(req: Request, res: Response) {
   try {
     const { movieId } = req.query;
@@ -327,6 +383,36 @@ export async function userReview(req: Request, res: Response) {
       return res.status(404).json({
         success: false,
         msg: "User review not found",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      msg: "User review retrieved successfully",
+      userReview: userReview,
+    });
+  } catch (error) {
+    console.error(
+      "Error while fetching the particular review by the user: ",
+      error
+    );
+    return res.status(500).json({
+      success: false,
+      msg: "Internal Server Error",
+    });
+  }
+}
+
+export async function allUserReviews(req: Request, res: Response) {
+  try {
+    const userReview = await prisma.review.findMany({
+      where: {
+        userId: Number(req.query.userId),
+      }
+    });
+    if (!userReview) {
+      return res.status(404).json({
+        success: false,
+        msg: "User reviews not found",
       });
     }
     return res.status(200).json({

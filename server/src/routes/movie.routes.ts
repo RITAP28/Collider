@@ -2,7 +2,10 @@ import express from "express";
 import { isAuthenticated } from "../middlewares/auth.middleware";
 import {
   addReview,
+  allUserReviews,
   bookmarkedMovie,
+  getBookmarks,
+  getFavourites,
   getReviewsForMovie,
   getWatchlist,
   isAlreadyBookmarked,
@@ -60,7 +63,7 @@ export default (router: express.Router) => {
   );
 
   router.post(
-    '/add/movie/review',
+    "/add/movie/review",
     isAuthenticated as express.RequestHandler,
     asyncHandler(addReview)
   );
@@ -69,5 +72,20 @@ export default (router: express.Router) => {
     "/get/review/movie/user",
     isAuthenticated as express.RequestHandler,
     asyncHandler(userReview)
+  );
+  router.get(
+    "/get/favourite/movie",
+    isAuthenticated as express.RequestHandler,
+    asyncHandler(getFavourites)
+  );
+  router.get(
+    "/get/bookmark/movie",
+    isAuthenticated as express.RequestHandler,
+    asyncHandler(getBookmarks)
+  );
+  router.get(
+    "/get/user/reviews",
+    isAuthenticated as express.RequestHandler,
+    asyncHandler(allUserReviews)
   );
 };

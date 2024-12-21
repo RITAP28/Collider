@@ -49,7 +49,7 @@ function MainLayout() {
       <div className="w-[20%] bg-slate-400 flex flex-col">
         <Sidebar />
       </div>
-      <div className="w-[80%] bg-slate-500 flex flex-col overflow-y-auto scrollbar-hide">
+      <div className="w-[80%] bg-slate-500 flex flex-col min-h-screen overflow-y-auto scrollbar-hide">
         <div className="w-full h-[5rem] bg-slate-600 flex flex-row justify-center items-center py-4">
           <SearchHeader />
         </div>

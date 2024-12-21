@@ -151,6 +151,18 @@ export interface IWatchlist {
     addedAt: string;
 };
 
+export interface ILikeAndBookmark {
+    id: number;
+    userId: number;
+    movieId: number;
+    movieName: string;
+    moviePoster: string;
+    movieOverview: string;
+    voteAvg: number;
+    voteCount: number;
+    likedAt: string;
+}
+
 export interface IUserReviews {
   id: number;
   userId: number;
