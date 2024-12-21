@@ -108,7 +108,12 @@ const Sidebar = () => {
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/library/ratings.png" className="w-5 h-5" alt="" />
           </div>
-          <div className="w-[60%] flex justify-start pl-1 items-center text-lg">
+          <div
+            className="w-[60%] flex justify-start pl-1 items-center text-lg"
+            onClick={() => {
+              navigate("/trial");
+            }}
+          >
             Your Ratings
           </div>
         </div>

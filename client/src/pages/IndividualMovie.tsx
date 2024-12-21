@@ -54,7 +54,7 @@ const IndividualMovie = () => {
           </div>
           {/* comments section */}
           <div className="w-full p-4">
-            <MovieCommentsSection />
+            <MovieCommentsSection movieDetails={movieDetails} />
           </div>
           {/* recommendation system */}
           <div className="w-full">

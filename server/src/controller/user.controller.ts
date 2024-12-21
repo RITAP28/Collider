@@ -259,8 +259,14 @@ export async function getReviewsForMovie(req: Request, res: Response) {
     const { movieId } = req.query;
     const reviews = await prisma.review.findMany({
       where: {
-        movieId: Number(movieId)
-      }
+        movieId: Number(movieId),
+        userId: {
+          not: Number(req.query.userId)
+        }
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     return res.status(200).json({
       success: true,
@@ -268,26 +274,30 @@ export async function getReviewsForMovie(req: Request, res: Response) {
       reviews: reviews,
     });
   } catch (error) {
-    console.error("Error while fetching reviews for a particular movie: ", error);
+    console.error(
+      "Error while fetching reviews for a particular movie: ",
+      error
+    );
     return res.status(500).json({
       success: false,
-      msg: "Internal Server Error"
+      msg: "Internal Server Error",
     });
-  };
-};
+  }
+}
 
 export async function addReview(req: Request, res: Response) {
   try {
     const { userId, movieId } = req.query;
-    const { reviewText, rating } = req.body;
+    const { reviewText, rating, username } = req.body;
     const newReview = await prisma.review.create({
       data: {
         userId: Number(userId),
         movieId: Number(movieId),
+        username: String(username),
         reviewText: reviewText,
         rating: Number(rating),
-        updatedAt: new Date(Date.now())
-      }
+        updatedAt: new Date(Date.now()),
+      },
     });
     return res.status(201).json({
       success: true,
@@ -298,7 +308,40 @@ export async function addReview(req: Request, res: Response) {
     console.error("Error while adding review: ", error);
     return res.status(500).json({
       success: false,
-      msg: "Internal Server Error"
+      msg: "Internal Server Error",
     });
-  };
-};
+  }
+}
+
+export async function userReview(req: Request, res: Response) {
+  try {
+    const userReview = await prisma.review.findUnique({
+      where: {
+        userId_movieId: {
+          userId: Number(req.query.userId),
+          movieId: Number(req.query.movieId),
+        },
+      },
+    });
+    if (!userReview) {
+      return res.status(404).json({
+        success: false,
+        msg: "User review not found",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      msg: "User review retrieved successfully",
+      userReview: userReview,
+    });
+  } catch (error) {
+    console.error(
+      "Error while fetching the particular review by the user: ",
+      error
+    );
+    return res.status(500).json({
+      success: false,
+      msg: "Internal Server Error",
+    });
+  }
+}

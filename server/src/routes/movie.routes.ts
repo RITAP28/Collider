@@ -10,6 +10,7 @@ import {
   isAlreadyWatchListed,
   likedMovie,
   listedMovie,
+  userReview,
 } from "../controller/user.controller";
 import { asyncHandler } from "../middlewares/async.handler";
 
@@ -62,5 +63,11 @@ export default (router: express.Router) => {
     '/add/movie/review',
     isAuthenticated as express.RequestHandler,
     asyncHandler(addReview)
+  );
+
+  router.get(
+    "/get/review/movie/user",
+    isAuthenticated as express.RequestHandler,
+    asyncHandler(userReview)
   );
 };
