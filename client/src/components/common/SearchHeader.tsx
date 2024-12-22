@@ -1,26 +1,109 @@
+import { apiKey, IMoviesByGenre } from "../../lib/data.interface";
+import { useDebounce } from "../../hooks/useDebounce";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { config } from "../../lib/utils";
+import { useNavigate } from "react-router-dom";
+
 const SearchHeader = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>("");
+  const debouncedQuery = useDebounce(query, 500);
+  const [suggestions, setSuggestions] = useState<IMoviesByGenre[]>([]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = e.target.value;
+    setQuery(searchTerm);
+  };
+
+  useEffect(() => {
+    const handleSearchMovies = async () => {
+      try {
+        setLoading(true);
+
+        const suggestedMovies = await axios.get(
+          `https://api.themoviedb.org/3/search/movie?query=${debouncedQuery}&api_key=${apiKey}`,
+          config
+        );
+        setSuggestions(suggestedMovies.data.results);
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Error while searching for movies: ", error);
+      }
+    };
+
+    handleSearchMovies();
+  }, [debouncedQuery]);
+
+  const handleSearchBtn = async () => {
+    try {
+      const searchQuery = await axios.get(
+        `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${apiKey}`,
+        config
+      );
+      navigate(`/movie/${searchQuery.data.results[0].id}`);
+      console.log(searchQuery.data.results[0]);
+    } catch (error) {
+      console.error("Error while searching for movies: ", error);
+    }
+  };
+
   return (
     <>
-      <div className="w-[80%] flex flex-row items-center py-2">
-        <div className="w-[30%] flex justify-end pr-4 items-center text-lg font-medium font-Poppins">
-          Search any movie:
-        </div>
-        <div className="w-[50%] flex items-center">
-          <input
-            type="search"
-            name=""
-            id=""
-            className="w-full py-1 rounded-lg pl-2 font-Manrope"
-            placeholder="Search"
-          />
-        </div>
-        <div className="w-[20%] flex justify-start pl-2">
-          <button
-            type="button"
-            className="px-3 rounded-lg py-[0.50rem] bg-slate-800 text-white font-Poppins font-medium hover:cursor-pointer hover:bg-slate-300 hover:text-black transition duration-200 ease-in-out hover:scale-105"
-          >
-            Search
-          </button>
+      <div className="relative w-full">
+        <div className="w-[80%] flex flex-row items-center py-2 mx-auto">
+          <div className="w-[30%] flex justify-end pr-4 items-center text-lg font-medium font-Poppins">
+            Search any movie:
+          </div>
+          {/* search input bar */}
+          <div className="w-[50%] flex items-center relative">
+            <input
+              type="search"
+              name=""
+              id=""
+              className="w-full py-1 rounded-lg pl-2 font-Manrope"
+              placeholder="Search"
+              onChange={handleInputChange}
+            />
+          </div>
+          {/* dropdown menu suggesting movies */}
+          {loading ? (
+            <div>Loading...</div>
+          ) : suggestions.length > 0 ? (
+            <div className="absolute top-[100%] left-0 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto z-50">
+              {suggestions.map((s, index) => (
+                <div
+                  className="px-4 py-2 hover:bg-blue-100 cursor-pointer"
+                  key={index}
+                  onClick={() => {
+                    navigate(`/movie/${s.id}`);
+                    setQuery("");
+                    setSuggestions([]);
+                  }}
+                >
+                  {s.original_title}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-lg mt-1 shadow-lg max-h-60 overflow-y-auto">
+              <p className="font-Manrope font-medium text-red-400">
+                No results found
+              </p>
+            </div>
+          )}
+          {/* search button */}
+          <div className="w-[20%] flex justify-start pl-2">
+            <button
+              type="button"
+              className="px-3 rounded-lg py-[0.50rem] bg-slate-800 text-white font-Poppins font-medium hover:cursor-pointer hover:bg-slate-300 hover:text-black transition duration-200 ease-in-out hover:scale-105"
+              onClick={handleSearchBtn}
+            >
+              Search
+            </button>
+          </div>
         </div>
       </div>
     </>
