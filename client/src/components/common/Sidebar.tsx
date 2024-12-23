@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks/hook";
+import Logout from "./Logout";
 
 const Sidebar = () => {
   const { isAuthenticated, currentUser } = useAppSelector(
@@ -73,7 +74,9 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="w-full flex flex-col justify-center items-center text-white py-3 font-Manrope">
-        <div className="w-full flex text-white justify-center font-light">Library</div>
+        <div className="w-full flex text-white justify-center font-light">
+          Library
+        </div>
         <div className="w-[80%] flex flex-row py-2 rounded-sm hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black">
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/library/playlist.png" className="w-5 h-5" alt="" />
@@ -118,7 +121,9 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="w-full flex flex-col justify-center items-center text-white py-3">
-        <div className="w-full flex justify-center text-white font-light text-lg font-Manrope">General</div>
+        <div className="w-full flex justify-center text-white font-light text-lg font-Manrope">
+          General
+        </div>
         <div className="w-[80%] flex flex-row py-2 hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black rounded-sm">
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/general/settings.png" className="w-5 h-5" alt="" />
@@ -144,6 +149,7 @@ const Sidebar = () => {
             {isAuthenticated ? currentUser?.name : "Login"}
           </div>
         </div>
+        {isAuthenticated && <Logout />}
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { apiKey, IGenre, IMoviesByGenre } from "../lib/data.interface";
+import { apiKey, IGenre } from "../lib/data.interface";
 import { config } from "../lib/utils";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -8,8 +8,6 @@ const Genres = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [genre, setGenre] = useState<IGenre[]>([]);
-
-  const [movieLoading, setMovieLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const handleGetGenre = async () => {
