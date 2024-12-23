@@ -11,14 +11,21 @@ const SearchHeader = () => {
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebounce(query, 500);
   const [suggestions, setSuggestions] = useState<IMoviesByGenre[]>([]);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value;
     setQuery(searchTerm);
+    setIsSearching(true);
   };
 
   useEffect(() => {
     const handleSearchMovies = async () => {
+      if (!debouncedQuery.trim()) {
+        setIsSearching(false);
+        setSuggestions([]);
+        return;
+      }
       try {
         setLoading(true);
 
@@ -44,6 +51,9 @@ const SearchHeader = () => {
         config
       );
       navigate(`/movie/${searchQuery.data.results[0].id}`);
+      setIsSearching(false);
+      setQuery("");
+      setSuggestions([]);
       console.log(searchQuery.data.results[0]);
     } catch (error) {
       console.error("Error while searching for movies: ", error);
@@ -67,33 +77,35 @@ const SearchHeader = () => {
               placeholder="Search"
               onChange={handleInputChange}
             />
+            {isSearching && (
+              <div className="absolute top-[100%] left-0 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto z-50">
+                {loading ? (
+                  <div className="px-4 py-2">Loading...</div>
+                ) : suggestions.length > 0 ? (
+                  suggestions.map((s, index) => (
+                    <div
+                      key={index}
+                      className="px-4 py-2 hover:bg-blue-100 cursor-pointer"
+                      onClick={() => {
+                        navigate(`/movie/${s.id}`);
+                        setIsSearching(false);
+                        setQuery("");
+                        setSuggestions([]);
+                      }}
+                    >
+                      {s.original_title}
+                    </div>
+                  ))
+                ) : (
+                  <div className="px-4 py-2 font-Manrope font-medium text-red-400">
+                    No results found
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           {/* dropdown menu suggesting movies */}
-          {loading ? (
-            <div>Loading...</div>
-          ) : suggestions.length > 0 ? (
-            <div className="absolute top-[100%] left-0 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto z-50">
-              {suggestions.map((s, index) => (
-                <div
-                  className="px-4 py-2 hover:bg-blue-100 cursor-pointer"
-                  key={index}
-                  onClick={() => {
-                    navigate(`/movie/${s.id}`);
-                    setQuery("");
-                    setSuggestions([]);
-                  }}
-                >
-                  {s.original_title}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="absolute top-full left-0 w-full bg-white border border-gray-300 rounded-lg mt-1 shadow-lg max-h-60 overflow-y-auto">
-              <p className="font-Manrope font-medium text-red-400">
-                No results found
-              </p>
-            </div>
-          )}
+
           {/* search button */}
           <div className="w-[20%] flex justify-start pl-2">
             <button

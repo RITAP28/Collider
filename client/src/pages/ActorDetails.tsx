@@ -42,6 +42,11 @@ const ActorDetails = () => {
     handleGetMoviesBasedOnActor();
   }, [id]);
 
+  const handleDateToYear = (date: string) => {
+    const inputDate = new Date(date);
+    return inputDate.getFullYear();
+  };
+
   return loading ? (
     "loading..."
   ) : (
@@ -98,7 +103,7 @@ const ActorDetails = () => {
               Biography:
             </div>
             <div className="w-full font-Poppins font-medium">
-              {actorDetails?.biography}
+              {actorDetails?.biography.slice(0,400)}...
             </div>
           </div>
         </div>
@@ -107,16 +112,16 @@ const ActorDetails = () => {
         <div className="w-full pl-6 font-Poppins font-medium text-lg">
           Movies {actorDetails?.name} is a part of:
         </div>
-        <div className="w-full flex flex-row gap-2 overflow-x-auto scrollbar-hide pl-6 pb-4">
+        <div className="w-full flex flex-row gap-2 overflow-x-auto scrollbar-hide pl-6 pb-4 pt-2">
           {movies.map((movie, index) => (
             <div
-              className="min-w-[10rem] flex flex-col hover:scale-105 transition duration-200 ease-in-out hover:cursor-pointer"
+              className="min-w-[10rem] flex flex-col hover:scale-105 transition duration-200 ease-in-out hover:cursor-pointer bg-slate-400 p-2 rounded-md"
               key={index}
               onClick={() => {
                 navigate(`/movie/${movie.id}`);
               }}
             >
-              <div className="pt-4">
+              <div className="pt-2">
                 <img
                   src={`https://media.themoviedb.org/t/p/w260_and_h390_bestv2/${movie.poster_path}`}
                   alt={movie.original_title}
@@ -126,8 +131,22 @@ const ActorDetails = () => {
               <div className="w-full pl-2 pt-2 font-Poppins font-medium">
                 <p className="text-base">{movie.original_title}</p>
               </div>
+              <div className="w-full py-1 pl-2 font-Manrope font-medium">
+                {handleDateToYear(movie.release_date)}
+              </div>
             </div>
           ))}
+          <div className="min-w-[10rem] flex justify-center items-center font-Manrope font-semibold">
+            <button
+              type="button"
+              className="hover:underline transition duration-200 ease-in-out"
+              onClick={() => {
+                navigate(`/movie/person/${actorDetails?.id}`);
+              }}
+            >
+              View More
+            </button>
+          </div>
         </div>
       </div>
     </>

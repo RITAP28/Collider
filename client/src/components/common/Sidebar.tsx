@@ -8,22 +8,22 @@ const Sidebar = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className="w-full bg-black text-white flex justify-center py-4">
+      <div className="w-full text-white flex justify-center py-4">
         <div className="w-full">
           <p
-            className="font-bold text-xl flex justify-center hover:cursor-pointer"
+            className="font-bold text-xl flex justify-center hover:cursor-pointer font-Poppins"
             onClick={() => {
               navigate("/");
             }}
           >
             Collider
           </p>
-          <p className="text-sm flex justify-center">
+          <p className="text-sm flex justify-center font-Manrope">
             A movie recommendation system
           </p>
         </div>
       </div>
-      <div className="w-full bg-black flex flex-col justify-center items-center text-white py-3">
+      <div className="w-full flex flex-col justify-center items-center text-white py-3 font-Manrope">
         <div className="w-[80%] flex flex-row py-2 hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black rounded-sm">
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/menu/movie.png" className="w-5 h-5" alt="" />
@@ -72,9 +72,9 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className="w-full bg-red-300 flex flex-col justify-center py-3">
-        <div className="w-full flex justify-center font-light">Library</div>
-        <div className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out">
+      <div className="w-full flex flex-col justify-center items-center text-white py-3 font-Manrope">
+        <div className="w-full flex text-white justify-center font-light">Library</div>
+        <div className="w-[80%] flex flex-row py-2 rounded-sm hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black">
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/library/playlist.png" className="w-5 h-5" alt="" />
           </div>
@@ -83,7 +83,7 @@ const Sidebar = () => {
           </div>
         </div>
         <div
-          className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out"
+          className="w-[80%] flex flex-row py-2 hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black rounded-sm te"
           onClick={() => {
             navigate(`/person/watchlist?userId=${currentUser?.id}`);
           }}
@@ -95,7 +95,7 @@ const Sidebar = () => {
             Watchlists
           </div>
         </div>
-        <div className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out">
+        <div className="w-[80%] flex flex-row py-2 hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black rounded-sm te">
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/library/remind.png" className="w-5 h-5" alt="" />
           </div>
@@ -103,7 +103,7 @@ const Sidebar = () => {
             Remind
           </div>
         </div>
-        <div className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out">
+        <div className="w-[80%] flex flex-row py-2 hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black rounded-sm te">
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/library/ratings.png" className="w-5 h-5" alt="" />
           </div>
@@ -117,18 +117,18 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className="w-full bg-red-300 flex flex-col justify-center py-3">
-        <div className="w-full flex justify-center font-light">General</div>
-        <div className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out">
+      <div className="w-full flex flex-col justify-center items-center text-white py-3">
+        <div className="w-full flex justify-center text-white font-light text-lg font-Manrope">General</div>
+        <div className="w-[80%] flex flex-row py-2 hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black rounded-sm">
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/general/settings.png" className="w-5 h-5" alt="" />
           </div>
-          <div className="w-[60%] flex justify-start pl-1 items-center text-lg">
+          <div className="w-[60%] flex justify-start pl-1 items-center text-lg font-Manrope">
             Settings
           </div>
         </div>
         <div
-          className="w-full flex flex-row py-1 hover:cursor-pointer hover:bg-red-400 transition duration-150 ease-in-out"
+          className="w-[80%] flex flex-row py-2 hover:cursor-pointer hover:bg-white transition duration-150 ease-in-out hover:text-black rounded-sm te"
           onClick={() => {
             if (isAuthenticated) {
               navigate(`/profile/u/${currentUser?.name}`);
@@ -140,7 +140,7 @@ const Sidebar = () => {
           <div className="w-[40%] flex justify-end pr-1 items-center">
             <img src="/general/profile.png" className="w-5 h-5" alt="" />
           </div>
-          <div className="w-[60%] flex justify-start pl-1 items-center text-lg">
+          <div className="w-[60%] flex justify-start pl-1 items-center text-lg font-Manrope">
             {isAuthenticated ? currentUser?.name : "Login"}
           </div>
         </div>

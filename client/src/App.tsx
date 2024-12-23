@@ -16,6 +16,7 @@ import ActorDetails from "./pages/ActorDetails";
 import Watchlist from "./pages/library/Watchlist";
 import Trial from "./pages/Trial";
 import SearchResults from "./pages/SearchResults";
+import ActorMovies from "./pages/ActorMovies";
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -39,6 +40,7 @@ function App() {
           <Route path="/person/watchlist" element={<Watchlist />} />
           <Route path="/trial" element={<Trial />} />
           <Route path="/search/movie/:id" element={<SearchResults />} />
+          <Route path="/movie/person/:id" element={<ActorMovies />} />
         </Route>
       </Routes>
     </>
@@ -47,8 +49,8 @@ function App() {
 
 function MainLayout() {
   return (
-    <div className="w-full max-h-screen bg-slate-500 flex flex-row">
-      <div className="w-[20%] bg-slate-400 flex flex-col">
+    <div className="w-full max-h-screen flex flex-row">
+      <div className="w-[20%] bg-slate-500 flex flex-col">
         <Sidebar />
       </div>
       <div className="w-[80%] bg-slate-500 flex flex-col min-h-screen overflow-y-auto scrollbar-hide">
