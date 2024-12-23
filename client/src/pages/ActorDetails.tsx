@@ -11,13 +11,30 @@ const ActorDetails = () => {
   const [actorDetails, setActorDetails] = useState<IActorDetails | null>(null);
   const [movies, setMovies] = useState<IMoviesByGenre[]>([]);
   const handleGetDetails = async () => {
-    setLoading(true);
+    const cachedKey = `actor-${id}`;
+    const cachedData = localStorage.getItem(cachedKey);
+
+    if (cachedData) {
+      const parsedData = JSON.parse(cachedData);
+      setActorDetails(parsedData.actorDetails);
+      return;
+    }
+
     try {
+      setLoading(true);
       const response = await axios.get(
         `https://api.themoviedb.org/3/person/${id}?api_key=${apiKey}`,
         config
       );
       setActorDetails(response.data);
+
+      localStorage.setItem(
+        cachedKey,
+        JSON.stringify({
+          actorDetails: response.data
+        })
+      );
+
       setLoading(false);
     } catch (error) {
       console.error("Error while getting actor details: ", error);
@@ -25,11 +42,29 @@ const ActorDetails = () => {
   };
 
   const handleGetMoviesBasedOnActor = async () => {
+
+    const cachedMoviesByActor = `actor-movie-${id}`;
+    const cachedData = localStorage.getItem(cachedMoviesByActor);
+
+    if (cachedData){
+      const parsedData = JSON.parse(cachedData);
+      setMovies(parsedData.movies);
+      return;
+    };
+
     try {
       const response = await axios.get(
         `https://api.themoviedb.org/3/discover/movie?with_cast=${id}&api_key=${apiKey}`,
         config
       );
+
+      localStorage.setItem(
+        cachedMoviesByActor,
+        JSON.stringify({
+          movies: response.data.results,
+        })
+      );
+
       console.log("movies based on actor: ", response.data.results);
       setMovies(response.data.results);
     } catch (error) {

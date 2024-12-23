@@ -26,6 +26,21 @@ const ActorMovies = () => {
   };
 
   useEffect(() => {
+    const cacheKey = `movie-${id}-${currentPage}`;
+    const cachedData = localStorage.getItem(cacheKey);
+
+    // if data is cached already in the local storage
+    // then the code below will run and fill up the states
+    // and return
+    if (cachedData){
+        const parsedData = JSON.parse(cachedData);
+        setMovies(parsedData.movies);
+        setCurrentPage(parsedData.currentPage);
+        setTotalPages(parsedData.totalPages);
+        return;
+    }
+
+    // if no cached data is available, then the following function will be executed
     const handleGetMoviesBasedOnActorId = async () => {
       try {
         setLoading(true);
@@ -37,6 +52,16 @@ const ActorMovies = () => {
         setMovies(response.data.results);
         setCurrentPage(response.data.page);
         setTotalPages(response.data.total_pages);
+
+        // setting the data in the local storage for cache for fast retrieval
+        localStorage.setItem(
+            cacheKey,
+            JSON.stringify({
+                movies: response.data.results,
+                currentPage: response.data.page,
+                totalPages: response.data.total_pages,
+            })
+        )
 
         setLoading(false);
       } catch (error) {

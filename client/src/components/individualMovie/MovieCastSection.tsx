@@ -67,6 +67,9 @@ const MovieCastSection = ({
         <button
           type="button"
           className="bg-black text-white font-Poppins font-semibold text-sm rounded-full p-4 hover:cursor-pointer hover:scale-105 transition duration-200 ease-in-out"
+          onClick={() => {
+            navigate(`/movie/all/cast/crew/${movieDetails.id}`);
+          }}
         >
           View More
         </button>

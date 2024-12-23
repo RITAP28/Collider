@@ -17,6 +17,7 @@ import Watchlist from "./pages/library/Watchlist";
 import Trial from "./pages/Trial";
 import SearchResults from "./pages/SearchResults";
 import ActorMovies from "./pages/ActorMovies";
+import AllCastPage from "./pages/AllCastPage";
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -41,6 +42,7 @@ function App() {
           <Route path="/trial" element={<Trial />} />
           <Route path="/search/movie/:id" element={<SearchResults />} />
           <Route path="/movie/person/:id" element={<ActorMovies />} />
+          <Route path="/movie/all/cast/crew/:id" element={<AllCastPage />} />
         </Route>
       </Routes>
     </>
