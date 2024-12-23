@@ -18,6 +18,7 @@ import Trial from "./pages/Trial";
 import SearchResults from "./pages/SearchResults";
 import ActorMovies from "./pages/ActorMovies";
 import AllCastPage from "./pages/AllCastPage";
+import IndividualGenre from "./pages/IndividualGenre";
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -34,6 +35,7 @@ function App() {
           />
           <Route path="/landing/tv/shows" element={<TVShowLanding />} />
           <Route path="/landing/genres" element={<Genres />} />
+          <Route path="/landing/genres/specific" element={<IndividualGenre />} />
           <Route path="/landing/upcoming" element={<ComingSoon />} />
           <Route path="/profile/u/:username" element={<Profile />} />
           <Route path="/movie/:id" element={<IndividualMovie />} />
