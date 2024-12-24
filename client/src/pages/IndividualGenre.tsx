@@ -71,8 +71,6 @@ const IndividualGenre = () => {
     }
   };
 
-  // ... existing code ...
-
   return loading ? (
     "loading..."
   ) : (

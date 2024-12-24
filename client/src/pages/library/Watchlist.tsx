@@ -20,29 +20,29 @@ const Watchlist = () => {
     return formattedDate;
   };
 
-  const handleGetWatchlist = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:${port}/get/watchlist/movie?userId=${currentUser?.id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      console.log("response: ", response.data);
-      setWatchlist(response.data.watchlist);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error while retrieving watchlist from the db: ", error);
-    }
-  };
-
   useEffect(() => {
+    const handleGetWatchlist = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:${port}/api/v1/get/watchlist/movie?userId=${currentUser?.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log("response: ", response.data);
+        setWatchlist(response.data.watchlist);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error while retrieving watchlist from the db: ", error);
+      }
+    };
+
     handleGetWatchlist();
-  }, []);
+  }, [currentUser?.id, accessToken]);
 
   return loading ? (
     "loading..."

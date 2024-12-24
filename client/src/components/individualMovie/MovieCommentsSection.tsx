@@ -31,55 +31,60 @@ const MovieCommentsSection = ({
     document.body.style.overflow = "auto"; // Enable scrolling
   };
 
-  const handleFetchReviews = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:${port}/get/movie/reviews?movieId=${id}&userId=${currentUser?.id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      setReviews(response.data.reviews);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error while fetching reviews for this movie: ", error);
-    }
-  };
-
-  const handleFetchUserReview = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:${port}/get/review/movie/user?userId=${currentUser?.id}&movieId=${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        setUserReviewBtn(true);
-        setUserReview(response.data.userReview);
-      } else if (response.status === 404) {
-        setUserReviewBtn(false);
-        setUserReview(null);
+  useEffect(() => {
+    const handleFetchReviews = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:${port}/api/v1/get/movie/reviews?movieId=${id}&userId=${currentUser?.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setReviews(response.data.reviews);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error while fetching reviews for this movie: ", error);
       }
-    } catch (error) {
-      console.error(
-        "Error while fetching user reviews for this movie: ",
-        error
-      );
-    }
-  };
+    };
+
+    const handleFetchUserReview = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:${port}/api/v1/get/review/movie/user?userId=${currentUser?.id}&movieId=${id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        if (response.status === 200) {
+          setUserReviewBtn(true);
+          setUserReview(response.data.userReview);
+        } else if (response.status === 404) {
+          setUserReviewBtn(false);
+          setUserReview(null);
+        }
+      } catch (error) {
+        console.error(
+          "Error while fetching user reviews for this movie: ",
+          error
+        );
+      }
+    };
+
+    handleFetchReviews();
+    handleFetchUserReview();
+  }, [id, accessToken, currentUser?.id]);
 
   const handleAddReview = async () => {
     try {
       await axios.post(
-        `http://localhost:${port}/add/movie/review?userId=${currentUser?.id}&movieId=${id}`,
+        `http://localhost:${port}/api/v1/add/movie/review?userId=${currentUser?.id}&movieId=${id}`,
         {
           reviewText: reviewText,
           movieName: movieDetails.original_title,
@@ -109,19 +114,12 @@ const MovieCommentsSection = ({
     return formattedDate;
   };
 
-  useEffect(() => {
-    handleFetchReviews();
-    handleFetchUserReview();
-  }, [id]);
-
   return (
     <>
       <div className="w-full flex flex-col">
         <div className="w-full flex flex-row pb-2">
           <div className="basis-1/2 flex justify-start">
-            <p className="font-Poppins font-semibold text-lg">
-              User Reviews:
-            </p>
+            <p className="font-Poppins font-semibold text-lg">User Reviews:</p>
           </div>
           <div className="basis-1/2 flex justify-end items-center">
             {!userReviewBtn && (
@@ -151,9 +149,8 @@ const MovieCommentsSection = ({
               </div>
               <div className="w-full flex justify-start">
                 <p className="text-sm font-Manrope">
-                  Reviewed by{" "}
-                  <span className="font-semibold">you</span>{" "}
-                  on {handleDateConversion(userReview.createdAt)}
+                  Reviewed by <span className="font-semibold">you</span> on{" "}
+                  {handleDateConversion(userReview.createdAt)}
                 </p>
               </div>
             </div>
@@ -184,7 +181,9 @@ const MovieCommentsSection = ({
             ))}
           </div>
         ) : (
-          <div className="bg-slate-400 p-2 rounded-lg">No reviews from others yet</div>
+          <div className="bg-slate-400 p-2 rounded-lg">
+            No reviews from others yet
+          </div>
         )}
       </div>
       <div className="w-full">

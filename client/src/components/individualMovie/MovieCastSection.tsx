@@ -45,7 +45,7 @@ const MovieCastSection = ({
           className="bg-slate-300 min-w-[10rem] rounded-lg hover:scale-105 transition duration-200 ease-in-out"
           key={index}
           onClick={() => {
-            navigate(`/person/${cast.id}`);
+            navigate(`/actor/${cast.id}`);
           }}
         >
           <div className="w-full">

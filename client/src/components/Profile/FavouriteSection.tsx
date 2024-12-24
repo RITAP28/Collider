@@ -12,28 +12,28 @@ const FavouriteSection = () => {
   const [likeMoviesLoading, setLikeMoviesLoading] = useState<boolean>(false);
   const [likeMovies, setLikeMovies] = useState<ILikeAndBookmark[]>([]);
 
-  const handleGetFavourites = async () => {
-    setLikeMoviesLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:${port}/get/favourite/movie?userId=${currentUser?.id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      setLikeMovies(response.data.likedMovies);
-      setLikeMoviesLoading(false);
-    } catch (error) {
-      console.error("Error while fetching favorites: ", error);
-    }
-  };
-
   useEffect(() => {
+    const handleGetFavourites = async () => {
+      setLikeMoviesLoading(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:${port}/api/v1/get/favourite/movie?userId=${currentUser?.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setLikeMovies(response.data.likedMovies);
+        setLikeMoviesLoading(false);
+      } catch (error) {
+        console.error("Error while fetching favorites: ", error);
+      }
+    };
+
     handleGetFavourites();
-  }, [currentUser?.id]);
+  }, [currentUser?.id, accessToken]);
 
   const handleDateConversion = (date: string) => {
     const inputDate = new Date(date);
@@ -44,6 +44,7 @@ const FavouriteSection = () => {
     });
     return formattedDate;
   };
+  
   return (
     <div className="w-full flex flex-col pb-4">
       <div className="w-full">

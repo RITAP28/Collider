@@ -10,7 +10,7 @@ const Logout = () => {
     const { currentUser, accessToken } = useAppSelector((state) => state.user);
     const handleLogout = async () => {
         try {
-            const logoutResponse = await axios.post(`http://localhost:${port}/logout?id=${currentUser?.id}`, {
+            const logoutResponse = await axios.post(`http://localhost:${port}/api/v1/auth/logout?id=${currentUser?.id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${accessToken}`,

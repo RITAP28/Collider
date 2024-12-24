@@ -112,9 +112,6 @@ const Sidebar = () => {
           </div>
           <div
             className="w-[60%] flex justify-start pl-1 items-center text-lg"
-            onClick={() => {
-              navigate("/trial");
-            }}
           >
             Your Ratings
           </div>

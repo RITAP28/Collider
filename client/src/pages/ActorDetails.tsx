@@ -187,7 +187,7 @@ const ActorDetails = () => {
               type="button"
               className="hover:underline transition duration-200 ease-in-out text-sm md:text-base"
               onClick={() => {
-                navigate(`/movie/person/${actorDetails?.id}`);
+                navigate(`/movie/actor/${actorDetails?.id}`);
               }}
             >
               View More

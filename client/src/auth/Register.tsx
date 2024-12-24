@@ -27,7 +27,7 @@ const Register = () => {
       e.preventDefault();
       console.log(formData);
       const registerResponse = await axios.post(
-        `http://localhost:8000/register`,
+        `http://localhost:8000/api/v1/auth/register`,
         formData,
         {
           headers: {
@@ -115,6 +115,7 @@ const Register = () => {
                   <button
                     type="submit"
                     className="px-6 py-2 rounded-md bg-black text-white font-medium text-base hover:bg-slate-800 transition duration-200 ease-in-out hover:cursor-pointer font-Poppins"
+                    disabled={loading}
                   >
                     {loading ? "Registering..." : "Register"}
                   </button>

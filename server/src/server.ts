@@ -21,7 +21,7 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static("public"));
-app.use('/', router());
+app.use('/api/v1', router());
 
 async function startServer() {
     try {

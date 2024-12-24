@@ -10,28 +10,29 @@ const BookmarkSection = () => {
   const [bookmarkMoviesLoading, setBookmarkMoviesLoading] =
     useState<boolean>(false);
   const [bookmarkMovies, setBookmarkMovies] = useState<ILikeAndBookmark[]>([]);
-  const handleGetBookmark = async () => {
-    setBookmarkMoviesLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:${port}/get/bookmark/movie?userId=${currentUser?.id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      setBookmarkMovies(response.data.bookmarkedMovie);
-      setBookmarkMoviesLoading(false);
-    } catch (error) {
-      console.error("Error while fetching favorites: ", error);
-    }
-  };
 
   useEffect(() => {
+    const handleGetBookmark = async () => {
+      setBookmarkMoviesLoading(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:${port}/api/v1/get/bookmark/movie?userId=${currentUser?.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setBookmarkMovies(response.data.bookmarkedMovie);
+        setBookmarkMoviesLoading(false);
+      } catch (error) {
+        console.error("Error while fetching favorites: ", error);
+      }
+    };
+
     handleGetBookmark();
-  }, [currentUser?.id]);
+  }, [currentUser?.id, accessToken]);
 
   const handleDateConversion = (date: string) => {
     const inputDate = new Date(date);

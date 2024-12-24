@@ -1,4 +1,3 @@
-
 import { config } from "../../lib/utils";
 import {
   apiKey,
@@ -18,23 +17,23 @@ const MovieRecommendationSection = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [recommendations, setRecommendations] = useState<IMoviesByGenre[]>([]);
 
-  const handleMovieRecommendations = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${movieDetails.id}/recommendations?language=en-US&page=1&api_key=${apiKey}`,
-        config
-      );
-      setRecommendations(response.data.results);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error while loading movie recommendations: ", error);
-    }
-  };
-
   useEffect(() => {
+    const handleMovieRecommendations = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${movieDetails.id}/recommendations?language=en-US&page=1&api_key=${apiKey}`,
+          config
+        );
+        setRecommendations(response.data.results);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error while loading movie recommendations: ", error);
+      }
+    };
+    
     handleMovieRecommendations();
-  }, []);
+  }, [movieDetails.id]);
 
   return loading
     ? "loading..."

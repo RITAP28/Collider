@@ -1,7 +1,7 @@
 import { IMovieDetails } from "@/lib/data.interface";
 import { useAppSelector } from "../../../redux/hooks/hook";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const BookmarkButton = ({ movieDetails }: { movieDetails: IMovieDetails }) => {
   const { currentUser, accessToken } = useAppSelector((state) => state.user);
@@ -17,41 +17,44 @@ const BookmarkButton = ({ movieDetails }: { movieDetails: IMovieDetails }) => {
     voteAvg: movieDetails.vote_average,
     voteCount: movieDetails.vote_count,
   };
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
-
-  const handleIsAlreadyBookmarked = async () => {
-    try {
-      const isBookmarkedResponse = await axios.get(
-        `http://localhost:${port}/get/check/bookmark/movie?userId=${currentUser?.id}&movieId=${movieDetails.id}`,
-        config
-      );
-      console.log("is bookmarked?: ", isBookmarkedResponse.data);
-      setIsBookmarked(isBookmarkedResponse.data.isBookmarked);
-    } catch (error) {
-      console.error(
-        "Error while checking whether the movie is already bookmarked: ",
-        error
-      );
-    }
-  };
+  const config = useMemo(
+    () => ({
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }),
+    [accessToken]
+  );
 
   useEffect(() => {
+    const handleIsAlreadyBookmarked = async () => {
+      try {
+        const isBookmarkedResponse = await axios.get(
+          `http://localhost:${port}/api/v1/get/check/bookmark/movie?userId=${currentUser?.id}&movieId=${movieDetails.id}`,
+          config
+        );
+        console.log("is bookmarked?: ", isBookmarkedResponse.data);
+        setIsBookmarked(isBookmarkedResponse.data.isBookmarked);
+      } catch (error) {
+        console.error(
+          "Error while checking whether the movie is already bookmarked: ",
+          error
+        );
+      }
+    };
+
     handleIsAlreadyBookmarked();
-  }, [movieDetails.id]);
+  }, [movieDetails.id, currentUser?.id, config, port]);
 
   const handleBookmarkMovie = async () => {
     try {
       const bookmarkedMovie = await axios.post(
-        `http://localhost:${port}/bookmark/movie/${movieDetails.id}`,
+        `http://localhost:${port}/api/v1/bookmark/movie/${movieDetails.id}`,
         requestBody,
         config
       );
-      if(bookmarkedMovie.data.success){
+      if (bookmarkedMovie.data.success) {
         setIsBookmarked(true);
       }
       console.log("Movie successfully bookmarked: ", bookmarkedMovie.data);

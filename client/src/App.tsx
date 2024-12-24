@@ -14,7 +14,7 @@ import Profile from "./pages/Profile";
 import IndividualMovie from "./pages/IndividualMovie";
 import ActorDetails from "./pages/ActorDetails";
 import Watchlist from "./pages/library/Watchlist";
-import Trial from "./pages/Trial";
+// import Trial from "./pages/Trial";
 import SearchResults from "./pages/SearchResults";
 import ActorMovies from "./pages/ActorMovies";
 import AllCastPage from "./pages/AllCastPage";
@@ -25,6 +25,7 @@ import MoreTopRatedMovies from "./pages/Landing/MoreTopRatedMovies";
 import MoreNowPlaying from "./pages/Landing/MoreNowPlaying";
 import NotFound from "./pages/NotFound";
 import { useState } from "react";
+import { ProtectedRoutes } from "./utils/ProtectedRoutes";
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -56,13 +57,21 @@ function App() {
             element={<IndividualGenre />}
           />
           <Route path="/landing/upcoming" element={<ComingSoon />} />
-          <Route path="/profile/u/:username" element={<Profile />} />
+          <Route path="/profile/u/:username" element={
+            <ProtectedRoutes>
+              <Profile />
+            </ProtectedRoutes>
+          } />
           <Route path="/movie/:id" element={<IndividualMovie />} />
-          <Route path="/person/:id" element={<ActorDetails />} />
-          <Route path="/person/watchlist" element={<Watchlist />} />
-          <Route path="/trial" element={<Trial />} />
+          <Route path="/actor/:id" element={<ActorDetails />} />
+          <Route path="/person/watchlist" element={
+            <ProtectedRoutes>
+              <Watchlist />
+            </ProtectedRoutes>
+          } />
+          {/* <Route path="/trial" element={<Trial />} /> */}
           <Route path="/search/movie/:id" element={<SearchResults />} />
-          <Route path="/movie/person/:id" element={<ActorMovies />} />
+          <Route path="/movie/actor/:id" element={<ActorMovies />} />
           <Route path="/movie/all/cast/crew/:id" element={<AllCastPage />} />
 
           <Route path="*" element={<NotFound />} />

@@ -8,28 +8,28 @@ const UserReview = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [reviews, setReviews] = useState<IUserReviews[]>([]);
 
-  const handleGetReviews = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:${port}/get/user/reviews?userId=${currentUser?.id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      setReviews(response.data.userReview);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error while fetching reviews: ", error);
-    }
-  };
-
   useEffect(() => {
+    const handleGetReviews = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:${port}/api/v1/get/user/reviews?userId=${currentUser?.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setReviews(response.data.userReview);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error while fetching reviews: ", error);
+      }
+    };
+
     handleGetReviews();
-  }, [currentUser?.id]);
+  }, [currentUser?.id, accessToken]);
 
   const handleDateConversion = (date: Date) => {
     const inputDate = new Date(date);

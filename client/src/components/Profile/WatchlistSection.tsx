@@ -21,28 +21,28 @@ const WatchlistSection = () => {
     return formattedDate;
   };
 
-  const handleGetWatchlist = async () => {
-    setWatchlistMoviesLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:${port}/get/watchlist/movie?userId=${currentUser?.id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      setWatchlistMovies(response.data.watchlist);
-      setWatchlistMoviesLoading(false);
-    } catch (error) {
-      console.error("Error while fetching watchlists: ", error);
-    }
-  };
-
   useEffect(() => {
+    const handleGetWatchlist = async () => {
+      setWatchlistMoviesLoading(true);
+      try {
+        const response = await axios.get(
+          `http://localhost:${port}/api/v1/get/watchlist/movie?userId=${currentUser?.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setWatchlistMovies(response.data.watchlist);
+        setWatchlistMoviesLoading(false);
+      } catch (error) {
+        console.error("Error while fetching watchlists: ", error);
+      }
+    };
+
     handleGetWatchlist();
-  }, [currentUser?.id]);
+  }, [currentUser?.id, accessToken]);
 
   return (
     <div className="w-full flex flex-col">
