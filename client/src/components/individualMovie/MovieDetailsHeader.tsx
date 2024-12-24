@@ -26,21 +26,21 @@ const MovieDetailsHeader = ({
   };
 
   return (
-    <div className="w-full flex flex-row p-4">
-      <div className="w-[30%]">
+    <div className="w-full flex flex-col md:flex-row p-4">
+      <div className="w-full md:w-[30%] flex justify-center md:block">
         <img
           src={`https://media.themoviedb.org/t/p/w260_and_h390_bestv2/${movieDetails.poster_path}`}
           alt={movieDetails.title}
-          className="w-[20rem] h-[30rem] rounded-xl shadow-xl"
+          className="w-[15rem] md:w-[20rem] h-[22rem] md:h-[30rem] rounded-xl shadow-xl"
         />
       </div>
-      <div className="w-[70%]">
+      <div className="w-full md:w-[70%] mt-4 md:mt-0">
         <div className="w-full pt-4">
-          <h1 className="font-Poppins font-semibold text-[2.5rem] text-white">
+          <h1 className="font-Poppins font-semibold text-[1.8rem] md:text-[2.5rem] text-white text-center md:text-left">
             {movieDetails.title}
           </h1>
         </div>
-        <div className="w-full flex flex-row">
+        <div className="w-full flex flex-row flex-wrap justify-center md:justify-start gap-2 md:gap-0">
           <div className="flex items-center pr-2">
             {movieDetails.adult ? (
               <img src="/adult.png" alt="" className="w-2 h-2" />
@@ -58,19 +58,20 @@ const MovieDetailsHeader = ({
             |
           </span>
           <div className="px-2 flex items-center font-Poppins font-semibold">
-            <p className="">{`(`}</p>
+            <p>{`(`}</p>
             {movieDetails.origin_country.map((movie, index) => (
-              <div className="" key={index}>{movie},</div>
+              <div key={index}>{movie},</div>
             ))}
-            <p className="">{`)`}</p>
+            <p>{`)`}</p>
           </div>
           <span className="font-Poppins font-semibold px-1 flex items-center">
             |
           </span>
-          <div className="px-2 flex items-center font-Poppins font-semibold">
+          <div className="px-2 flex items-center font-Poppins font-semibold flex-wrap justify-center">
             {movieDetails.genres.map((genre, index) => (
-              <div className="" key={index}>
-                {genre.name},
+              <div key={index} className="mx-1">
+                {genre.name}
+                {index < movieDetails.genres.length - 1 ? "," : ""}
               </div>
             ))}
           </div>
@@ -83,27 +84,29 @@ const MovieDetailsHeader = ({
               : handleDurationConversion(movieDetails.runtime)}
           </div>
         </div>
-        <div className="w-full flex flex-row py-2">
+        <div className="w-full flex flex-row justify-center md:justify-start py-2">
           <FavouriteButton movieDetails={movieDetails} />
           <WatchListButton movieDetails={movieDetails} />
           <BookmarkButton movieDetails={movieDetails} />
         </div>
         <div className="w-full flex flex-col">
           <div className="w-full">
-            <p className="font-Poppins text-lg font-semibold underline">
+            <p className="font-Poppins text-lg font-semibold underline text-center md:text-left">
               Overview:
             </p>
           </div>
           <div className="w-full py-2">
-            <p className="font-Poppins font-medium">{movieDetails.overview}</p>
+            <p className="font-Poppins font-medium text-center md:text-left">
+              {movieDetails.overview}
+            </p>
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full flex justify-center md:justify-start">
           <button
             type="button"
             className="flex flex-row p-3 bg-slate-400 rounded-lg hover:bg-slate-300 transition duration-200 ease-in-out"
           >
-            <p className="">
+            <p>
               <img
                 src="/like/playBtn.png"
                 alt=""
@@ -114,8 +117,8 @@ const MovieDetailsHeader = ({
           </button>
         </div>
         <div className="w-full flex flex-col pt-4">
-          <div className="w-full font-Manrope text-lg">Details:</div>
-          <div className="w-full flex flex-row pt-2 gap-2">
+          <div className="w-full font-Manrope text-lg text-center md:text-left">Details:</div>
+          <div className="w-full flex flex-row flex-wrap justify-center md:justify-start pt-2 gap-2">
             <button
               type="button"
               className="flex flex-row bg-slate-400 p-2 rounded-lg font-Poppins hover:scale-105 transition duration-200 ease-in-out hover:bg-black hover:text-white"

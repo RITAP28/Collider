@@ -51,7 +51,7 @@ const Watchlist = () => {
       <div className="w-full font-Poppins font-semibold text-3xl">
         Your Watchlist:
       </div>
-      <div className="w-full grid grid-cols-3 gap-1 overflow-x-auto scrollbar-hide pt-4">
+      <div className="w-full md:grid md:grid-cols-3 flex flex-col gap-1 overflow-x-auto scrollbar-hide pt-4">
         {watchlist.map((movie, index) => (
           <div
             className="flex flex-row bg-slate-400 transition duration-200 ease-in-out hover:cursor-pointer p-2 hover:bg-black hover:text-white rounded-md"

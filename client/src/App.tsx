@@ -24,6 +24,7 @@ import MoreUpcoming from "./pages/Landing/MoreUpcoming";
 import MoreTopRatedMovies from "./pages/Landing/MoreTopRatedMovies";
 import MoreNowPlaying from "./pages/Landing/MoreNowPlaying";
 import NotFound from "./pages/NotFound";
+import { useState } from "react";
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -72,16 +73,58 @@ function App() {
 }
 
 function MainLayout() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+
   return (
-    <div className="w-full max-h-screen flex flex-row">
-      <div className="w-[20%] bg-slate-500 flex flex-col">
-        <Sidebar />
-      </div>
-      <div className="w-[80%] bg-slate-500 flex flex-col min-h-screen overflow-y-auto scrollbar-hide">
-        <div className="w-full h-[5rem] bg-slate-500 flex flex-row justify-center items-center py-4">
+    <div className="w-full h-screen relative">
+      {/* Mobile-only Header */}
+      <div className="md:hidden fixed top-0 left-0 right-0 h-[5rem] bg-slate-500 flex items-center z-40 px-4">
+        <button 
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className="p-2"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <div className="flex-1 flex justify-center">
           <SearchHeader />
         </div>
-        <Outlet />
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="flex h-full">
+        {/* Overlay for mobile */}
+        {isSidebarOpen && (
+          <div 
+            className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+
+        {/* Sidebar */}
+        <div className={`
+          fixed top-0 left-0 h-full
+          w-[70%] md:w-[20%] bg-slate-500 
+          transform transition-transform duration-300 ease-in-out
+          z-50
+          ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        `}>
+          <Sidebar />
+        </div>
+
+        {/* Main Content Area */}
+        <div className="w-full md:w-[80%] md:ml-[20%]">
+          {/* Desktop Search Header */}
+          <div className="hidden md:flex fixed top-0 h-[5rem] bg-slate-500 w-[80%] items-center justify-center z-40">
+            <SearchHeader />
+          </div>
+
+          {/* Scrollable Content */}
+          <div className="w-full h-full overflow-y-auto pt-[5rem] bg-slate-500">
+            <Outlet />
+          </div>
+        </div>
       </div>
     </div>
   );

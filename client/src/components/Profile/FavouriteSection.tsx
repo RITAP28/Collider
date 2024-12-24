@@ -52,7 +52,7 @@ const FavouriteSection = () => {
       {likeMoviesLoading ? (
         "loading..."
       ) : (
-        <div className="w-full grid grid-cols-3 gap-2 px-2">
+        <div className="w-full flex flex-col md:grid md:grid-cols-3 gap-2 px-2">
           {likeMovies.map((movie, index) => (
             <div
               className="min-w-[10rem] flex flex-row bg-slate-400 transition duration-200 ease-in-out hover:cursor-pointer p-2 hover:bg-black hover:text-white rounded-md"

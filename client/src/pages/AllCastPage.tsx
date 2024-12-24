@@ -84,19 +84,23 @@ const AllCastPage = () => {
     "loading..."
   ) : (
     <div className="w-full">
+      {/* Movie Title Section */}
       {movieDetailsLoading ? (
         "loading name of the movie..."
       ) : (
-        <div className="w-full flex justify-center items-center">
-          <p className="font-Manrope font-bold text-2xl text-white">
+        <div className="w-full flex justify-center items-center p-4">
+          <p className="font-Manrope font-bold text-xl md:text-2xl text-white text-center">
             {movieDetails?.original_title}
           </p>
         </div>
       )}
-      <div className="w-full flex flex-row pb-[3rem]">
-        {/* component for cast details */}
+
+      {/* Cast and Crew Container */}
+      <div className="w-full flex flex-col md:flex-row pb-[3rem] px-4 md:px-0 gap-6 md:gap-0">
+        {/* Cast Details Section */}
         <CastDetailsSection castDetails={castDetails} />
-        {/* component for crew details */}
+
+        {/* Crew Details Section */}
         <CrewDetailsSection crewDetails={crewDetails} />
       </div>
     </div>

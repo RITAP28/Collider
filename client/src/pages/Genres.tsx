@@ -36,7 +36,7 @@ const Genres = () => {
       <div className="w-full flex justify-center pt-2 pb-4">
         <p className="font-Manrope font-bold text-2xl">Our Genres</p>
       </div>
-      <div className="w-full grid grid-cols-4 gap-4 px-2">
+      <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 px-2 pb-6">
         {genre.map((g, index) => (
           <div
             className="w-full bg-gradient-to-r from-slate-400 to-blue-500 flex justify-center items-center px-4 py-8 rounded-lg hover:cursor-pointer hover:scale-105 transition duration-200 ease-in-out hover:text-white font-Manrope font-bold"

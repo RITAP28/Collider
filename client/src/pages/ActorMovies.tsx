@@ -104,62 +104,65 @@ const ActorMovies = () => {
     "loading..."
   ) : (
     <>
-      <div className="w-full flex flex-row pt-2 px-2 pb-6">
-        <div className="basis-1/2 flex justify-start pl-2">
-          <p className="font-Poppins font-semibold text-xl">
+      {/* Header Section */}
+      <div className="w-full flex flex-col md:flex-row pt-2 px-4 pb-4 md:pb-6">
+        <div className="w-full md:basis-1/2 flex justify-center md:justify-start">
+          <p className="font-Poppins font-semibold text-lg md:text-xl text-center md:text-left">
             {actorLoading ? "loading..." : `Movies by ${actorDetails?.name}:`}
           </p>
         </div>
-        <div className="basis-1/2 flex justify-end pr-2">
-          <div className="flex flex-row">
-            <div className="pr-2">
-              <button
-                type="button"
-                className="px-4 py-2 rounded-lg bg-black text-white font-Manrope font-medium text-sm hover:bg-white hover:text-black transition duration-200 ease-in-out hover:cursor-pointer"
-                onClick={handlePrevPage}
-                disabled={currentPage === 1}
-              >
-                Prev
-              </button>
-            </div>
-            <div className="px-2 flex justify-center items-center">
-              <p className="font-Manrope font-medium text-lg">
+        
+        {/* Pagination Controls */}
+        <div className="w-full md:basis-1/2 flex justify-center md:justify-end mt-4 md:mt-0">
+          <div className="flex flex-row items-center gap-2">
+            <button
+              type="button"
+              className="px-3 md:px-4 py-2 rounded-lg bg-black text-white font-Manrope font-medium text-sm hover:bg-white hover:text-black transition duration-200 ease-in-out hover:cursor-pointer"
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+            >
+              Prev
+            </button>
+            <div className="px-2 md:px-3 flex justify-center items-center">
+              <p className="font-Manrope font-medium text-base md:text-lg">
                 Page {currentPage} of {totalPages}
               </p>
             </div>
-            <div className="px-2">
-              <button
-                type="button"
-                className="px-4 py-2 rounded-lg bg-black text-white font-Manrope font-medium text-sm hover:bg-white hover:text-black transition duration-200 ease-in-out hover:cursor-pointer"
-                onClick={handleNextPage}
-                disabled={currentPage === totalPages}
-              >
-                Next
-              </button>
-            </div>
+            <button
+              type="button"
+              className="px-3 md:px-4 py-2 rounded-lg bg-black text-white font-Manrope font-medium text-sm hover:bg-white hover:text-black transition duration-200 ease-in-out hover:cursor-pointer"
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>
-      <div className="w-full grid grid-cols-4 gap-4 px-2">
+  
+      {/* Movies Grid */}
+      <div className="w-full grid grid-cols-2 pb-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
         {movies.map((movie, index) => (
           <div
-            className="min-w-[5rem] min-h-[2rem] flex flex-col hover:scale-105 transition duration-200 ease-in-out hover:cursor-pointer bg-slate-400 hover:bg-black hover:text-white p-2 rounded-md"
+            className="flex flex-col hover:scale-105 transition duration-200 ease-in-out hover:cursor-pointer bg-slate-400 hover:bg-black hover:text-white p-2 rounded-md"
             key={index}
             onClick={() => {
               navigate(`/movie/${movie.id}`);
             }}
           >
-            <div className="pt-2">
+            <div className="pt-2 flex justify-center">
               <img
                 src={`https://media.themoviedb.org/t/p/w260_and_h390_bestv2/${movie.poster_path}`}
                 alt={movie.original_title}
-                className="rounded-md"
+                className="w-[80%] md:w-full rounded-md"
               />
             </div>
-            <div className="w-full pl-2 pt-2 font-Poppins font-medium">
-              <p className="text-base">{movie.original_title}</p>
+            <div className="w-full px-2 md:px-4 pt-2 font-Poppins font-medium">
+              <p className="text-base text-center md:text-left line-clamp-2">
+                {movie.original_title}
+              </p>
             </div>
-            <div className="w-full py-1 pl-2 font-Manrope font-medium">
+            <div className="w-full py-1 px-2 md:px-4 font-Manrope font-medium text-center md:text-left">
               {handleDateToYear(movie.release_date)}
             </div>
           </div>

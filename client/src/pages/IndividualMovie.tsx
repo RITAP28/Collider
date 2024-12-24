@@ -32,45 +32,53 @@ const IndividualMovie = () => {
     handleGetMovieDetailsById();
   }, [id]);
 
-  return (
-    <div className="w-full">
-      {loading ? (
-        "loading..."
-      ) : movieDetails ? (
-        <>
-          {/* Header details */}
-          <MovieDetailsHeader movieDetails={movieDetails} />
-          {/* media section */}
-          <MovieVideoSection movieDetails={movieDetails} />
-          <div className="w-full">
-            <MoviePhotoSection movieDetails={movieDetails} />
-          </div>
-          {/* cast details */}
-          <div className="w-full">
-            <div className="w-full font-Poppins font-medium text-2xl p-4">
-              Meet the Cast:
+    return (
+      <div className="w-full">
+        {loading ? (
+          "loading..."
+        ) : movieDetails ? (
+          <>
+            {/* Header details */}
+            <MovieDetailsHeader movieDetails={movieDetails} />
+    
+            {/* media section */}
+            <MovieVideoSection movieDetails={movieDetails} />
+    
+            {/* photos section */}
+            <div className="w-full px-2 md:px-0">
+              <MoviePhotoSection movieDetails={movieDetails} />
             </div>
-            <MovieCastSection movieDetails={movieDetails} />
-          </div>
-          {/* comments section */}
-          <div className="w-full p-4">
-            <MovieCommentsSection movieDetails={movieDetails} />
-          </div>
-          {/* recommendation system */}
-          <div className="w-full">
-            <div className="w-full pl-4 font-Poppins font-semibold text-xl">
+    
+            {/* cast details */}
+            <div className="w-full">
+              <div className="w-full font-Poppins font-medium text-xl md:text-2xl p-4">
+                Meet the Cast:
+              </div>
+              <div className="px-2 md:px-0">
+                <MovieCastSection movieDetails={movieDetails} />
+              </div>
+            </div>
+    
+            {/* comments section */}
+            <div className="w-full p-2 md:p-4">
+              <MovieCommentsSection movieDetails={movieDetails} />
+            </div>
+    
+            {/* recommendation system */}
+            <div className="w-full">
+              <div className="w-full px-4 font-Poppins font-semibold text-lg md:text-xl">
                 Movies similar to {movieDetails.original_title}
+              </div>
+              <div className="w-full p-2 md:p-4 flex flex-row gap-2 overflow-x-auto scrollbar-hide">
+                <MovieRecommendationSection movieDetails={movieDetails} />
+              </div>
             </div>
-            <div className="w-full p-4 flex flex-row gap-2 overflow-x-auto scrollbar-hide">
-              <MovieRecommendationSection movieDetails={movieDetails} />
-            </div>
-          </div>
-        </>
-      ) : (
-        "movie details is null"
-      )}
-    </div>
-  );
+          </>
+        ) : (
+          "movie details is null"
+        )}
+      </div>
+    );
 };
 
 export default IndividualMovie;

@@ -63,12 +63,12 @@ const SearchHeader = () => {
   return (
     <>
       <div className="relative w-full">
-        <div className="w-[80%] flex flex-row items-center py-2 mx-auto">
-          <div className="w-[30%] flex justify-end pr-4 items-center text-lg font-medium font-Poppins">
-            Search any movie:
+        <div className="w-[80%] flex flex-row items-center py-2">
+          <div className="w-[30%] flex justify-end pr-4 items-center text-sm md:text-lg font-medium font-Poppins">
+            Search:
           </div>
           {/* search input bar */}
-          <div className="w-[50%] flex items-center relative">
+          <div className="md:w-[50%] w-[70%] flex items-center relative">
             <input
               type="search"
               name=""
@@ -107,7 +107,7 @@ const SearchHeader = () => {
           {/* dropdown menu suggesting movies */}
 
           {/* search button */}
-          <div className="w-[20%] flex justify-start pl-2">
+          <div className="w-[10%] md:w-[20%] flex justify-start pl-2">
             <button
               type="button"
               className="px-3 rounded-lg py-[0.50rem] bg-slate-800 text-white font-Poppins font-medium hover:cursor-pointer hover:bg-slate-300 hover:text-black transition duration-200 ease-in-out hover:scale-105"

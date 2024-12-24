@@ -49,7 +49,7 @@ const UserReview = () => {
       {loading ? (
         "loading..."
       ) : (
-        <div className="w-full grid grid-cols-3 gap-2">
+        <div className="w-full md:grid md:grid-cols-3 flex flex-col gap-2 pb-4">
           {reviews.length === 0
             ? (
                 <p className="font-Poppins text-xl font-semibold pb-4">No reviews from you yet</p>
