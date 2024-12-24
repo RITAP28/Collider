@@ -2,6 +2,9 @@ import axios from "axios";
 import { apiKey, IMoviesByGenre } from "../lib/data.interface";
 import { useEffect, useState } from "react";
 import { config } from "../lib/utils";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { handleApiError } from "../lib/error.handling";
 
 const IndividualGenre = () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -25,9 +28,22 @@ const IndividualGenre = () => {
         setMovies(response.data.results);
         setCurrentPage(response.data.page);
         setTotalPages(response.data.total_pages);
-        setLoading(false);
+        
+        toast.success("Action movies fetched successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          closeButton: true
+        });
       } catch (error) {
         console.error("Error while fetching movies based on genre id: ", error);
+        const apiError = handleApiError(error);
+        toast.error(apiError.message, {
+          position: "top-right",
+          autoClose: 3000,
+          closeButton: true
+        });
+      } finally {
+        setLoading(false);
       }
     };
 

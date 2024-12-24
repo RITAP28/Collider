@@ -23,6 +23,7 @@ import MoreTrending from "./pages/Landing/MoreTrending";
 import MoreUpcoming from "./pages/Landing/MoreUpcoming";
 import MoreTopRatedMovies from "./pages/Landing/MoreTopRatedMovies";
 import MoreNowPlaying from "./pages/Landing/MoreNowPlaying";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -62,6 +63,8 @@ function App() {
           <Route path="/search/movie/:id" element={<SearchResults />} />
           <Route path="/movie/person/:id" element={<ActorMovies />} />
           <Route path="/movie/all/cast/crew/:id" element={<AllCastPage />} />
+
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </>

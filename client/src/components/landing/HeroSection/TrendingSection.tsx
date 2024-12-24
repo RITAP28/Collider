@@ -6,28 +6,38 @@ import {
 } from "../../../lib/data.interface";
 import { useNavigate } from "react-router-dom";
 import { config } from "../../../lib/utils";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { handleApiError } from "../../../lib/error.handling";
 
 const TrendingSection = () => {
   const navigate = useNavigate();
   const [trendingLoading, setTrendingLoading] = useState<boolean>(false);
   const [trendingMovies, setTrendingMovies] = useState<IMoviesByGenre[]>([]);
 
-  const handleGetPopularMovies = async () => {
-    setTrendingLoading(true);
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=${apiKey}`,
-        config
-      );
-      setTrendingMovies(response.data.results);
-      setTrendingLoading(false);
-    } catch (error) {
-      console.error("Error while searching for popular movies: ", error);
-    }
-  };
-
   useEffect(() => {
-    handleGetPopularMovies();
+    const handleGetTrendingMovies = async () => {
+      setTrendingLoading(true);
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=${apiKey}`,
+          config
+        );
+        setTrendingMovies(response.data.results);
+        toast.success("Fetched Trending Movies successfully", {
+          position: "top-right"
+        });
+      } catch (error) {
+        console.error("Error while searching for popular movies: ", error);
+        const apiError = handleApiError(error);
+        toast.error(apiError.message, {
+          position: "top-right"
+        });
+      } finally {
+        setTrendingLoading(false);
+      }
+    };
+    handleGetTrendingMovies();
   }, []);
 
   return (
