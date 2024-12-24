@@ -5,8 +5,10 @@ import {
   bearerToken,
   IMoviesByGenre,
 } from "../../../lib/data.interface";
+import { useNavigate } from "react-router-dom";
 
 const UpcomingSection = () => {
+  const navigate = useNavigate();
   const [upcomingLoading, setUpcomingLoading] = useState<boolean>(false);
   const [upcomingMovies, setUpcomingMovies] = useState<IMoviesByGenre[]>([]);
 
@@ -46,6 +48,9 @@ const UpcomingSection = () => {
             <div
               className="flex flex-col rounded-md w-[10rem] shrink-0 hover:scale-105 transition duration-200 ease-in-out hover:cursor-pointer"
               key={index}
+              onClick={() => {
+                navigate(`/movie/${movie.id}`);
+              }}
             >
               <div className="w-full">
                 <img
@@ -59,6 +64,13 @@ const UpcomingSection = () => {
               </div>
             </div>
           ))}
+          <div className="min-w-[10rem] flex justify-center">
+            <button type="button" className="font-Manrope font-semibold text-lg hover:underline transition duration-200 ease-in-out hover:cursor-pointer" onClick={() => {
+              navigate(`/movies/landing/upcoming`);
+            }}>
+              View More
+            </button>
+          </div>
         </div>
       )}
     </div>

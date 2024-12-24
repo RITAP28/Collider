@@ -19,6 +19,10 @@ import SearchResults from "./pages/SearchResults";
 import ActorMovies from "./pages/ActorMovies";
 import AllCastPage from "./pages/AllCastPage";
 import IndividualGenre from "./pages/IndividualGenre";
+import MoreTrending from "./pages/Landing/MoreTrending";
+import MoreUpcoming from "./pages/Landing/MoreUpcoming";
+import MoreTopRatedMovies from "./pages/Landing/MoreTopRatedMovies";
+import MoreNowPlaying from "./pages/Landing/MoreNowPlaying";
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.user);
@@ -35,7 +39,20 @@ function App() {
           />
           <Route path="/landing/tv/shows" element={<TVShowLanding />} />
           <Route path="/landing/genres" element={<Genres />} />
-          <Route path="/landing/genres/specific" element={<IndividualGenre />} />
+          <Route path="/landing/movies/trending" element={<MoreTrending />} />
+          <Route
+            path="/landing/movies/top/rated"
+            element={<MoreTopRatedMovies />}
+          />
+          <Route
+            path="/landing/movies/playing/now"
+            element={<MoreNowPlaying />}
+          />
+          <Route path="/landing/movies/upcoming" element={<MoreUpcoming />} />
+          <Route
+            path="/landing/genres/specific"
+            element={<IndividualGenre />}
+          />
           <Route path="/landing/upcoming" element={<ComingSoon />} />
           <Route path="/profile/u/:username" element={<Profile />} />
           <Route path="/movie/:id" element={<IndividualMovie />} />

@@ -2,10 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import {
   apiKey,
-  bearerToken,
   IMoviesByGenre,
 } from "../../../lib/data.interface";
 import { useNavigate } from "react-router-dom";
+import { config } from "../../../lib/utils";
 
 const TrendingSection = () => {
   const navigate = useNavigate();
@@ -17,12 +17,7 @@ const TrendingSection = () => {
     try {
       const response = await axios.get(
         `https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=${apiKey}`,
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${bearerToken}`,
-          },
-        }
+        config
       );
       setTrendingMovies(response.data.results);
       setTrendingLoading(false);
@@ -66,6 +61,13 @@ const TrendingSection = () => {
               </div>
             </div>
           ))}
+          <div className="min-w-[10rem] flex justify-center">
+            <button type="button" className="font-Manrope font-bold hover:underline transition duration-200 ease-in-out" onClick={() => {
+              navigate(`/landing/movies/trending/1`);
+            }}>
+              View More
+            </button>
+          </div>
         </div>
       )}
     </div>

@@ -25,7 +25,7 @@ const Logout = () => {
         };
     };
   return (
-    <div className="w-[80%] flex justify-center items-center hover:cursor-pointer py-2 hover:bg-white transition duration-200 ease-in-out">
+    <div className="w-[80%] flex justify-center items-center hover:cursor-pointer py-2">
       <button
         type="button"
         className="px-4 py-1 rounded-md font-Manrope font-semibold bg-black text-white hover:bg-white hover:text-black transition duration-200 ease-in-out"

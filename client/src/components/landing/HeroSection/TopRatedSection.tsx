@@ -5,8 +5,10 @@ import {
   IMoviesByGenre,
 } from "../../../lib/data.interface";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const TopRatedSection = () => {
+  const navigate = useNavigate();
   const [sectionLoading, setSectionLoading] = useState<boolean>(false);
   const [topRatedMovies, setTopRatedMovies] = useState<IMoviesByGenre[]>([]);
 
@@ -46,6 +48,9 @@ const TopRatedSection = () => {
             <div
               className="flex flex-col rounded-md w-[10rem] shrink-0 hover:scale-105 transition duration-200 ease-in-out hover:cursor-pointer"
               key={index}
+              onClick={() => {
+                navigate(`/movie/${movie.id}`);
+              }}
             >
               <div className="w-full">
                 <img
@@ -61,6 +66,13 @@ const TopRatedSection = () => {
               </div>
             </div>
           ))}
+          <div className="min-w-[10rem] flex justify-center">
+            <button type="button" className="font-Manrope font-semibold text-lg hover:underline transition duration-200 ease-in-out hover:cursor-pointer" onClick={() => {
+              navigate(`/landing/movies/top/rated`);
+            }}>
+              View More
+            </button>
+          </div>
         </div>
       )}
     </div>
