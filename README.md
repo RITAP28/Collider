@@ -1,6 +1,6 @@
 # Movie Recommendation System
 
-A full-stack web application that provides personalized movie recommendations to users based on their preferences and viewing history.
+A fully-responsive full-stack web application that provides personalized movie recommendations to users based on their preferences and viewing history.
 
 ## Table of Contents
 
@@ -18,6 +18,7 @@ A full-stack web application that provides personalized movie recommendations to
     - [Installation](#installation)
 - [Install frontend dependencies](#install-frontend-dependencies)
 - [Install backend dependencies](#install-backend-dependencies)
+- [Install database dependencies](#install-database-dependencies)
     - [Environment Variables](#environment-variables)
   - [API Documentation](#api-documentation)
     - [Authentication Endpoints](#authentication-endpoints)
@@ -26,6 +27,7 @@ A full-stack web application that provides personalized movie recommendations to
   - [Database Schema](#database-schema)
     - [User Model](#user-model)
     - [and more in db/prisma/schema.prisma file](#and-more-in-dbprismaschemaprisma-file)
+    - [link to the explanation video: https://drive.google.com/drive/folders/1JOf1LlHos9OxYdEaquU3Vj376NxAPSm6?usp=drive\_link](#link-to-the-explanation-video-httpsdrivegooglecomdrivefolders1jof1llhos9oxydeaquu3vj376nxapsm6uspdrive_link)
   - [Future Improvements](#future-improvements)
   - [Contributing](#contributing)
   - [License](#license)
@@ -127,20 +129,27 @@ cd ../server
 npm install
 npm run dev
 
+# Install database dependencies
+cd ../db
+npm init -y
+npx tsc --init
+npx prisma init
+customise the database url from .env.example file
+npx prisma migrate dev --name init
+npx prisma generate (optional)
+
 
 ### Environment Variables
 Create `.env` files in both client and server directories:
 
 Frontend (.env)
-VITE_SERVER_PORT=8000
+cp .env.example .env
 
 Backend (.env)
-PORT=8000
-ACCESS_TOKEN_EXPIRY=15
-ACCESS_TOKEN_SECRET=(paste the string you get after running: openssl rand -base64 32)
-REFRESH_TOKEN_EXPIRY=7
-REFRESH_TOKEN_SECRET=(paste the string you get after running: openssl rand -base64 32)
+cp .env.example .env
 
+Database (.env)
+cp .env.example .env
 
 ## API Documentation
 
@@ -194,6 +203,8 @@ REFRESH_TOKEN_SECRET=(paste the string you get after running: openssl rand -base
 }
 
 ### and more in db/prisma/schema.prisma file
+
+### link to the explanation video: https://drive.google.com/drive/folders/1JOf1LlHos9OxYdEaquU3Vj376NxAPSm6?usp=drive_link
 
 ## Future Improvements
 - Implement advanced recommendation algorithms

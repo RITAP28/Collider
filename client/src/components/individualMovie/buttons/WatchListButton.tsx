@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IMovieDetails } from "../../../lib/data.interface";
 import { useAppSelector } from "../../../redux/hooks/hook";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const WatchListButton = ({ movieDetails }: { movieDetails: IMovieDetails }) => {
   const { currentUser, accessToken } = useAppSelector((state) => state.user);
@@ -17,37 +17,37 @@ const WatchListButton = ({ movieDetails }: { movieDetails: IMovieDetails }) => {
     voteAvg: movieDetails.vote_average,
     voteCount: movieDetails.vote_count,
   };
-  const config = {
+  const config = useMemo(() => ({
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
     },
-  };
-
-  const handleIsAlreadyListed = async () => {
-    try {
-      const isListedResponse = await axios.get(
-        `http://localhost:${port}/get/check/watchlist/movie?userId=${currentUser?.id}&movieId=${movieDetails.id}`,
-        config
-      );
-      console.log("is watchlisted?: ", isListedResponse.data);
-      setIsListed(isListedResponse.data.isListed);
-    } catch (error) {
-      console.error(
-        "Error while checking whether the movie is already listed: ",
-        error
-      );
-    }
-  };
+  }), [accessToken]);
 
   useEffect(() => {
+    const handleIsAlreadyListed = async () => {
+      try {
+        const isListedResponse = await axios.get(
+          `http://localhost:${port}/api/v1/get/check/watchlist/movie?userId=${currentUser?.id}&movieId=${movieDetails.id}`,
+          config
+        );
+        console.log("is watchlisted?: ", isListedResponse.data);
+        setIsListed(isListedResponse.data.isListed);
+      } catch (error) {
+        console.error(
+          "Error while checking whether the movie is already listed: ",
+          error
+        );
+      }
+    };
+
     handleIsAlreadyListed();
-  }, [movieDetails.id]);
+  }, [movieDetails.id, config, currentUser?.id, port]);
 
   const handleWatchlistMovie = async () => {
     try {
       const watchlistedMovie = await axios.post(
-        `http://localhost:${port}/list/movie/${movieDetails.id}`,
+        `http://localhost:${port}/api/v1/list/movie/${movieDetails.id}`,
         requestBody,
         config
       );

@@ -5,8 +5,10 @@ import { config } from "../lib/utils";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { handleApiError } from "../lib/error.handling";
+import { useNavigate } from "react-router-dom";
 
 const IndividualGenre = () => {
+  const navigate = useNavigate();
   const urlParams = new URLSearchParams(window.location.search);
   const genreId = urlParams.get("genreId");
   const genreName = urlParams.get("genreName");
@@ -106,6 +108,9 @@ const IndividualGenre = () => {
           <div
             className="w-full rounded-md flex flex-col hover:text-white transition duration-200 ease-in-out hover:cursor-pointer hover:scale-105"
             key={index}
+            onClick={() => {
+              navigate(`/movie/${movie.id}`);
+            }}
           >
             <div className="w-full flex justify-center pt-2">
               <img

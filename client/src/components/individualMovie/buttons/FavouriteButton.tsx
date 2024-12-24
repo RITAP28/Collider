@@ -27,7 +27,7 @@ const FavouriteButton = ({ movieDetails }: { movieDetails: IMovieDetails }) => {
   const handleIsAlreadyLiked = async () => {
     try {
       const isLikedResponse = await axios.get(
-        `http://localhost:${port}/get/check/like/movie?userId=${currentUser?.id}&movieId=${movieDetails.id}`,
+        `http://localhost:${port}/api/v1/get/check/like/movie?userId=${currentUser?.id}&movieId=${movieDetails.id}`,
         config
       );
       console.log("is liked?: ", isLikedResponse.data);
@@ -47,7 +47,7 @@ const FavouriteButton = ({ movieDetails }: { movieDetails: IMovieDetails }) => {
   const handleLikeMovie = async () => {
     try {
       const likedMovie = await axios.post(
-        `http://localhost:${port}/like/movie/${movieDetails.id}`,
+        `http://localhost:${port}/api/v1/like/movie/${movieDetails.id}`,
         requestBody,
         config
       );
