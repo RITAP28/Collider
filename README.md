@@ -32,6 +32,9 @@ A fully-responsive full-stack web application that provides personalized movie r
   - [Contributing](#contributing)
   - [License](#license)
 
+### link to the explanation video: 
+- [https://drive.google.com/drive/folders/1JOf1LlHos9OxYdEaquU3Vj376NxAPSm6?usp=drive_link]
+
 ## Overview
 
 This project was developed as part of an internship assignment. It's a movie recommendation system that allows users to:
@@ -203,10 +206,6 @@ cp .env.example .env
 }
 
 ### and more in db/prisma/schema.prisma file
-
-### link to the explanation video: 
-
-[https://drive.google.com/drive/folders/1JOf1LlHos9OxYdEaquU3Vj376NxAPSm6?usp=drive_link]
 
 ## Future Improvements
 - Implement advanced recommendation algorithms
