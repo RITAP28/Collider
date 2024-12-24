@@ -27,7 +27,7 @@ A fully-responsive full-stack web application that provides personalized movie r
   - [Database Schema](#database-schema)
     - [User Model](#user-model)
     - [and more in db/prisma/schema.prisma file](#and-more-in-dbprismaschemaprisma-file)
-    - [link to the explanation video: https://drive.google.com/drive/folders/1JOf1LlHos9OxYdEaquU3Vj376NxAPSm6?usp=drive\_link](#link-to-the-explanation-video-httpsdrivegooglecomdrivefolders1jof1llhos9oxydeaquu3vj376nxapsm6uspdrive_link)
+    - [link to the explanation video:](#link-to-the-explanation-video)
   - [Future Improvements](#future-improvements)
   - [Contributing](#contributing)
   - [License](#license)
@@ -204,7 +204,9 @@ cp .env.example .env
 
 ### and more in db/prisma/schema.prisma file
 
-### link to the explanation video: https://drive.google.com/drive/folders/1JOf1LlHos9OxYdEaquU3Vj376NxAPSm6?usp=drive_link
+### link to the explanation video: 
+
+[https://drive.google.com/drive/folders/1JOf1LlHos9OxYdEaquU3Vj376NxAPSm6?usp=drive_link]
 
 ## Future Improvements
 - Implement advanced recommendation algorithms
