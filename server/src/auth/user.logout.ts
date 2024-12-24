@@ -31,5 +31,9 @@ export const UserLogoutFunction = async (req: Request, res: Response) => {
       });
     } catch (error) {
       console.error("Error while logging out: ", error);
-    }
+      return res.status(500).json({
+        success: false,
+        msg: "Internal Server Error",
+      });
+    };
   };
